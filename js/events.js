@@ -7,10 +7,10 @@ $(document).ready(function () {
     // Load events
     loadEvents();
 
-
     // Search button
     $("#searchBtn").click(function () {
 
+        saveFilterState();
         applyFilters();
 
     });
@@ -23,6 +23,24 @@ $(document).ready(function () {
 
     });
 
+    // Register
+    $(document).on("click", ".register-btn", function () {
+
+        const button = $(this);
+
+        const eventId = button.data("event-id");
+
+        registerForEvent(eventId);
+
+        button.text("Registered ✓");
+
+        button.css({
+            "background": "#16a34a"
+        });
+
+        button.prop("disabled", true);
+
+    });
 });
 
 
@@ -38,14 +56,40 @@ function loadEvents() {
 
         success: function (events) {
 
-             console.log("Events loaded using jQuery:", events);
+            console.log("Events loaded using jQuery:", events);
 
             // Store all events
             allEvents = events;
 
-            // Display all events initially
-            displayEvents(allEvents);
+            // Check whether there are saved filters
+            const savedFilters =
+                sessionStorage.getItem("eventFilters");
 
+            if (savedFilters) {
+
+                const filterState =
+                    JSON.parse(savedFilters);
+
+                // Restore filter UI
+                $("#eventSearch").val(filterState.search);
+                $("#categoryFilter").val(filterState.category);
+                $("#dateFilter").val(filterState.date);
+                $("#skillFilter").val(filterState.skill);
+
+                console.log(
+                    "Filter state restored:",
+                    filterState
+                );
+
+                // Apply restored filters AFTER events are loaded
+                applyFilters();
+
+            } else {
+
+                // No saved filters
+                displayEvents(allEvents);
+
+            }
 
         },
 
@@ -204,10 +248,38 @@ function resetFilters() {
 
     $("#skillFilter").val("all");
 
+    // Remove saved filter state from sessionStorage
+    sessionStorage.removeItem("eventFilters");
+
     // Show all events again
     displayEvents(allEvents);
 
     console.log("Filters reset.");
+
+}
+
+function saveFilterState() {
+
+    const filterState = {
+
+        search: $("#eventSearch").val(),
+
+        category: $("#categoryFilter").val(),
+
+        date: $("#dateFilter").val(),
+
+        skill: $("#skillFilter").val()
+
+    };
+
+
+    sessionStorage.setItem(
+        "eventFilters",
+        JSON.stringify(filterState)
+    );
+
+
+    console.log("Filter state saved:", filterState);
 
 }
 
@@ -247,6 +319,11 @@ function displayEvents(events) {
 
 
 function createEventCard(event) {
+    let registeredEvents =
+        JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+    const isRegistered =
+        registeredEvents.includes(Number(event.id));
 
     return `
         <div class="col-lg-4 col-md-6">
@@ -297,8 +374,10 @@ function createEventCard(event) {
                     <button
                         class="register-btn"
                         data-event-id="${event.id}"
+                        ${isRegistered ? "disabled" : ""}
+                        style="${isRegistered ? "background: #16a34a;" : ""}"
                     >
-                        Register Now
+                        ${isRegistered ? "Registered ✓" : "Register Now"}
                     </button>
 
                 </div>
@@ -307,4 +386,30 @@ function createEventCard(event) {
 
         </div>
     `;
+}
+
+function registerForEvent(eventId) {
+
+    // Get existing registrations
+    let registeredEvents =
+        JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+
+    // Convert event ID to number
+    eventId = Number(eventId);
+
+
+    // Check if already registered
+    if (!registeredEvents.includes(eventId)) {
+
+        registeredEvents.push(eventId);
+
+        localStorage.setItem(
+            "registeredEvents",
+            JSON.stringify(registeredEvents)
+        );
+
+        console.log("Registered for event:", eventId);
+
+    }
 }
