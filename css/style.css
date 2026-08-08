@@ -1041,3 +1041,27 @@ body {
 
     font-weight: 600;
 }
+
+.upcoming-register-btn {
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+.upcoming-register-btn:hover {
+    background: #eff6ff;
+}
+
+
+/* Registered state */
+.upcoming-register-btn.registered {
+    background: #16a34a;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: default;
+    padding: 5px 10px;
+}

@@ -43,6 +43,21 @@ $(document).ready(function () {
 
     });
 
+    $(document).on("click", ".upcoming-register-btn", function () {
+
+        const button = $(this);
+
+        const eventId = button.data("event-id");
+
+        registerForEvent(eventId);
+
+        button.text("Registered ✓");
+
+        button.addClass("registered");
+
+        button.prop("disabled", true);
+
+    });
     $("#prevMonth").click(function () {
 
         currentCalendarDate.setMonth(
@@ -76,9 +91,9 @@ $(document).ready(function () {
 
     $("#closeCalendarPopup").click(function () {
 
-    $("#calendarEventPopup").slideUp(200);
+        $("#calendarEventPopup").slideUp(200);
 
-});
+    });
 });
 
 
@@ -101,11 +116,11 @@ function loadEvents() {
 
             // Render the calendar after events are loaded
             renderCalendar();
-            
+
             //Upcoming events
             displayUpcomingEvents(allEvents);
             console.log("Upcoming events:", events);
-            
+
             // Check whether there are saved filters
             const savedFilters =
                 sessionStorage.getItem("eventFilters");
@@ -128,7 +143,7 @@ function loadEvents() {
 
                 // Apply restored filters AFTER events are loaded
                 applyFilters();
-                
+
             } else {
 
                 // No saved filters
