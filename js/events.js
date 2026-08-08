@@ -102,6 +102,10 @@ function loadEvents() {
             // Render the calendar after events are loaded
             renderCalendar();
             
+            //Upcoming events
+            displayUpcomingEvents(allEvents);
+            console.log("Upcoming events:", events);
+            
             // Check whether there are saved filters
             const savedFilters =
                 sessionStorage.getItem("eventFilters");
@@ -583,5 +587,71 @@ function showCalendarEvent(eventId) {
 
 
     $("#calendarEventPopup").slideDown(200);
+
+}
+
+function displayUpcomingEvents(events) {
+
+    const container = $("#upcomingEvents");
+
+    container.empty();
+
+
+    events.forEach(function (event) {
+
+        const date = new Date(event.date);
+
+
+        const month = date
+            .toLocaleString("default", {
+                month: "short"
+            })
+            .toUpperCase();
+
+
+        const day = String(
+            date.getDate()
+        ).padStart(2, "0");
+
+
+        const eventHTML = `
+            <div class="upcoming-event">
+
+                <div class="date-box">
+
+                    <strong>${month}</strong>
+
+                    <span>${day}</span>
+
+                </div>
+
+
+                <div class="upcoming-info">
+
+                    <strong>
+                        ${event.title}
+                    </strong>
+
+                    <small>
+                        ${event.type}
+                    </small>
+
+                </div>
+
+
+                <button
+                    class="upcoming-register-btn"
+                    data-event-id="${event.id}"
+                >
+                    Register
+                </button>
+
+            </div>
+        `;
+
+
+        container.append(eventHTML);
+
+    });
 
 }
