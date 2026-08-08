@@ -3,9 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>About Us - AI Innovation Club</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 31, 49, 0.7);
+            --primary-cyan: #00f2fe;
+            --primary-purple: #4facfe;
+            --accent-pink: #f72585;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* === Navigation  === */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-cyan);
+        }
+
+        /* === Page Header === */
+        .page-header {
+            padding: 160px 8% 60px;
+            text-align: center;
+        }
+
+        .page-header .badge {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: var(--primary-cyan);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* === Team Section  === */
+        .team-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 8% 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .member-photo {
+            flex-shrink: 0;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+       
+        .member-photo i {
+            font-size: 2.2rem;
+            color: var(--text-muted);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .member-role {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: var(--primary-purple);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            padding: 3px 12px;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .member-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* === Responsive === */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .team-member {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
-    
+
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-brain"></i> AI Innovation Club
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#join">Join Us</a></li>
+        </ul>
+    </header>
+
+    <!-- Page Intro -->
+    <section class="page-header">
+        <div class="badge"><i class="fa-solid fa-users"></i> Meet the Team</div>
+        <h1>The Genius People Behind the Club</h1>
+        <p>Below is the Four Core Members of Our Team</p>
+    </section>
+
+    <!-- Team Members:  -->
+    <section class="team-section">
+
+        <!-- Leader -->
+        <div class="team-member">
+            <div class="member-photo">
+                
+                 <img src="4.jpeg" alt="">
+                
+            </div>
+            <div class="member-info">
+                <h3>Leow Wei Ru</h3>
+                <span class="member-role">Group Leader</span>
+                <p></p>
+            </div>
+        </div>
+
+        <!-- Member 1 -->
+        <div class="team-member">
+            <div class="member-photo">
+                <img src="1.jpeg" alt="Beh Jie Shen">
+            </div>
+            <div class="member-info">
+                <h3>Beh Jie Shen </h3>
+                <span class="member-role">Group member</span>
+                <p></p>
+            </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="team-member">
+            <div class="member-photo">
+                <img src="2.jpeg" alt="Chan Ken">
+            </div>
+            <div class="member-info">
+                <h3>Chan Ken</h3>
+                <span class="member-role">Group member</span>
+                <p></p>
+            </div>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="team-member">
+            <div class="member-photo">
+                <img src="3.jpeg" alt="Wan Hao Lic ">
+            </div>
+            <div class="member-info">
+                <h3>Wan Hao Lic 4</h3>
+                <span class="member-role">Group member</span>
+                <p></p>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 AI Innovation Club. All rights reserved. Built for Next AI-Gen Creators.</p>
+    </footer>
+
 </body>
 </html>
