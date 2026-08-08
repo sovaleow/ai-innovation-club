@@ -1,3 +1,5 @@
+let allEvents = [];
+
 $(document).ready(function () {
 
     console.log("Events page loaded.");
@@ -9,9 +11,7 @@ $(document).ready(function () {
     // Search button
     $("#searchBtn").click(function () {
 
-        const searchValue = $("#eventSearch").val();
-
-        console.log("Searching for:", searchValue);
+        applyFilters();
 
     });
 
@@ -19,13 +19,7 @@ $(document).ready(function () {
     // Reset button
     $("#resetBtn").click(function () {
 
-        $("#eventSearch").val("");
-
-        $("#categoryFilter").val("all");
-        $("#dateFilter").val("all");
-        $("#skillFilter").val("all");
-
-        console.log("Filters reset.");
+        resetFilters();
 
     });
 
@@ -44,9 +38,14 @@ function loadEvents() {
 
         success: function (events) {
 
-            console.log("Events loaded using jQuery:", events);
+             console.log("Events loaded using jQuery:", events);
 
-            displayEvents(events);
+            // Store all events
+            allEvents = events;
+
+            // Display all events initially
+            displayEvents(allEvents);
+
 
         },
 
@@ -60,6 +59,157 @@ function loadEvents() {
 
 }
 
+function applyFilters() {
+
+    const searchValue = $("#eventSearch")
+        .val()
+        .toLowerCase()
+        .trim();
+
+    const categoryValue = $("#categoryFilter").val();
+
+    const dateValue = $("#dateFilter").val();
+
+    const skillValue = $("#skillFilter").val();
+
+
+    const filteredEvents = allEvents.filter(function (event) {
+
+        // -------------------------
+        // SEARCH FILTER
+        // -------------------------
+
+        const searchableText = `
+            ${event.title}
+            ${event.speaker}
+            ${event.venue}
+            ${event.type}
+        `.toLowerCase();
+
+        const matchesSearch =
+            searchValue === "" ||
+            searchableText.includes(searchValue);
+
+
+        // -------------------------
+        // CATEGORY FILTER
+        // -------------------------
+
+        const matchesCategory =
+            categoryValue === "all" ||
+            event.type.toLowerCase() === categoryValue;
+
+
+        // -------------------------
+        // SKILL LEVEL FILTER
+        // -------------------------
+
+        const matchesSkill =
+            skillValue === "all" ||
+            event.level.toLowerCase() === skillValue;
+
+
+        // -------------------------
+        // DATE FILTER
+        // -------------------------
+
+        const matchesDate = checkDateFilter(
+            event.date,
+            dateValue
+        );
+
+
+        return (
+            matchesSearch &&
+            matchesCategory &&
+            matchesSkill &&
+            matchesDate
+        );
+
+    });
+
+
+    console.log("Filtered events:", filteredEvents);
+
+    displayEvents(filteredEvents);
+
+}
+
+function checkDateFilter(eventDate, dateFilter) {
+
+    if (dateFilter === "all") {
+        return true;
+    }
+
+
+    const date = new Date(eventDate);
+
+    const now = new Date();
+
+
+    // Start of current month
+    const startOfThisMonth = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        1
+    );
+
+
+    // Start of next month
+    const startOfNextMonth = new Date(
+        now.getFullYear(),
+        now.getMonth() + 1,
+        1
+    );
+
+
+    // Start of month after next
+    const startOfMonthAfterNext = new Date(
+        now.getFullYear(),
+        now.getMonth() + 2,
+        1
+    );
+
+
+    if (dateFilter === "this-month") {
+
+        return (
+            date >= startOfThisMonth &&
+            date < startOfNextMonth
+        );
+
+    }
+
+
+    if (dateFilter === "next-month") {
+
+        return (
+            date >= startOfNextMonth &&
+            date < startOfMonthAfterNext
+        );
+
+    }
+
+
+    return true;
+}
+
+function resetFilters() {
+
+    $("#eventSearch").val("");
+
+    $("#categoryFilter").val("all");
+
+    $("#dateFilter").val("all");
+
+    $("#skillFilter").val("all");
+
+    // Show all events again
+    displayEvents(allEvents);
+
+    console.log("Filters reset.");
+
+}
 
 function displayEvents(events) {
 
