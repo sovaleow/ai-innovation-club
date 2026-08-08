@@ -3,9 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>AI Innovation Club - Exploring Infinite Intelligence</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === Base Styles & Theme Variables === */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 31, 49, 0.7);
+            --primary-cyan: #00f2fe;
+            --primary-purple: #4facfe;
+            --accent-pink: #f72585;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Interactive Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* === Navigation Bar === */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-cyan);
+        }
+
+        .btn-join {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+
+        /* === Hero Section === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+
+        .badge {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: var(--primary-cyan);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            max-width: 900px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* === General Section Styles === */
+        section {
+            padding: 100px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+        }
+
+        /* === Feature Grid === */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 35px 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary-cyan);
+            margin-bottom: 20px;
+        }
+
+        .glass-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .glass-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* === Project Tags === */
+        .project-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-top: 15px;
+            color: var(--primary-purple);
+            border: 1px solid rgba(79, 172, 254, 0.2);
+        }
+
+        /* === Call to Action / Join Form === */
+        .join-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 242, 254, 0.03));
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 30px auto 0;
+            flex-wrap: wrap;
+        }
+
+        .form-group input {
+            flex: 1;
+            min-width: 240px;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            background: rgba(11, 15, 25, 0.8);
+            color: #fff;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-cyan);
+        }
+
+        /* === Footer === */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* === Responsive Styles === */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            section { padding: 60px 5%; }
+        }
+    </style>
 </head>
 <body>
-    
+
+    <!-- Particle Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-brain"></i> AI Innovation Club
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#join">Join Us</a></li>
+        </ul>
+        <a href="#join" class="btn-join">Get Started</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="badge"><i class="fa-solid fa-sparkles"></i> Empowering Future AI Leaders</div>
+        <h1>Bridge Creativity & Algorithms,<br>Reshape the Future with <span>Artificial Intelligence</span></h1>
+        <p>AI Innovation Club is a community for tech enthusiasts, researchers, and creators. Whether you build models or design products, your AI journey starts here.</p>
+        <div class="cta-group">
+            <a href="#join" class="btn-join" style="padding: 12px 32px;">Join the Club</a>
+            <a href="#projects" class="btn-secondary">Explore Projects</a>
+        </div>
+    </section>
+
+    <!-- Core Section -->
+    <section id="about">
+        <div class="section-title">
+            <h2>What We Explore</h2>
+            <p>Pushing the boundaries of artificial intelligence through hands-on development</p>
+            <a href="about.html" class="btn-secondary" style="display:inline-block; margin-top: 20px;">More About Us</a>
+        </div>
+        <div class="grid-container">
+            <div class="glass-card">
+                <i class="fa-solid fa-microchip card-icon"></i>
+                <h3>LLMs & RAG</h3>
+                <p>Exploring Large Language Model fine-tuning, Prompt Engineering, and Retrieval-Augmented Generation for customized agents.</p>
+            </div>
+            <div class="glass-card">
+                <i class="fa-solid fa-wand-magic-sparkles card-icon"></i>
+                <h3>Generative AI & Art</h3>
+                <p>Harnessing Diffusion Models, GANs, and multimodal tools to redefine digital media and creative workflows.</p>
+            </div>
+            <div class="glass-card">
+                <i class="fa-solid fa-robot card-icon"></i>
+                <h3>Embodied AI & Robotics</h3>
+                <p>Combining Computer Vision and Reinforcement Learning to build intelligent edge devices that interact with the real world.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Show Project Section -->
+    <section id="projects">
+        <div class="section-title">
+            <h2>Incubated Projects</h2>
+            <p>Experimental AI applications built and maintained by club members</p>
+        </div>
+        <div class="grid-container">
+            <div class="glass-card">
+                <h3>Campus-GPT Agent</h3>
+                <p>A domain-specific AI assistant trained on campus knowledge bases to help students navigate course selection and campus life.</p>
+                <span class="project-tag">LLM / LangChain</span>
+            </div>
+            <div class="glass-card">
+                <h3>AutoSight Vision Assistant</h3>
+                <p>Real-time object detection mobile app integrated with audio feedback to assist visually impaired individuals in navigation.</p>
+                <span class="project-tag">Computer Vision / YOLOv8</span>
+            </div>
+            <div class="glass-card">
+                <h3>CodeMorph AI</h3>
+                <p>A developer extension that analyzes legacy codebases and generates optimized, modernized refactored code snippets.</p>
+                <span class="project-tag">Fine-Tuned Model</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Us Section part ~~ -->
+    <section id="join">
+        <div class="glass-card join-section" style="padding: 60px 30px;">
+            <h2>Ready to Start Your AI Journey?</h2>
+            <p style="margin-top: 10px;">Leave your email below to receive an invitation for our next orientation session.</p>
+            <form class="form-group" onsubmit="handleJoin(event)">
+                <input type="email" placeholder="Enter your email address (e.g., alex@university.edu)" required>
+                <button type="submit" class="btn-join" style="border:none; cursor:pointer;">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- this is footer -->
+    <footer>
+        <p>&copy; 2026 AI Innovation Club. All rights reserved. Built for Next AI-Gen Creators!!!!</p>
+    </footer>
+
+    <!-- Interactive Script (Particle Canvas & Handlers) -->
+    <script>
+        // Interactive Canvas Particle Background
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = 60;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Connect nearby particles with dynamic lines
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 120 * 0.8})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Form Submission Handler
+        function handleJoin(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! Your application has been submitted successfully. We will reach out via email soon.');
+            e.target.reset();
+        }
+    </script>
 </body>
 </html>
