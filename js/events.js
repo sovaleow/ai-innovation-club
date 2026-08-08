@@ -103,7 +103,7 @@ function loadEvents() {
 
     $.ajax({
 
-        url: "data/events.json",
+        url: "http://localhost:3000/events",
         method: "GET",
         dataType: "json",
 
