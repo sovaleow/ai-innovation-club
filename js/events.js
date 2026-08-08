@@ -34,32 +34,29 @@ $(document).ready(function () {
 
 function loadEvents() {
 
-    console.log("Trying to load events.json...");
+    console.log("Trying to load events.json using jQuery AJAX...");
 
-    fetch("data/events.json")
-        .then(response => {
+    $.ajax({
 
-            console.log("Response received:", response);
+        url: "data/events.json",
+        method: "GET",
+        dataType: "json",
 
-            if (!response.ok) {
-                throw new Error("Could not load events.json");
-            }
+        success: function (events) {
 
-            return response.json();
-
-        })
-        .then(events => {
-
-            console.log("Events loaded:", events);
+            console.log("Events loaded using jQuery:", events);
 
             displayEvents(events);
 
-        })
-        .catch(error => {
+        },
 
-            console.error("ERROR:", error);
+        error: function (xhr, status, error) {
 
-        });
+            console.error("Failed to load events:", error);
+
+        }
+
+    });
 
 }
 
