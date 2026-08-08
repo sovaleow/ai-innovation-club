@@ -1065,3 +1065,30 @@ body {
     cursor: default;
     padding: 5px 10px;
 }
+
+.social-share-section {
+    padding: 60px 0;
+    text-align: center;
+    background: #ffffff;
+}
+
+.social-share-section small {
+    color: #2563eb;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.social-share-section h2 {
+    margin: 8px 0;
+}
+
+.social-share-section p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.social-share-section .a2a_kit {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
