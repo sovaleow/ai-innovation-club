@@ -1,4 +1,5 @@
 let allEvents = [];
+let currentCalendarDate = new Date();
 
 $(document).ready(function () {
 
@@ -41,6 +42,43 @@ $(document).ready(function () {
         button.prop("disabled", true);
 
     });
+
+    $("#prevMonth").click(function () {
+
+        currentCalendarDate.setMonth(
+            currentCalendarDate.getMonth() - 1
+        );
+
+        renderCalendar();
+
+    });
+
+
+    $("#nextMonth").click(function () {
+
+        currentCalendarDate.setMonth(
+            currentCalendarDate.getMonth() + 1
+        );
+
+        renderCalendar();
+
+    });
+
+    $(document).on("click", ".event-day", function () {
+
+        const eventId = Number(
+            $(this).data("event-id")
+        );
+
+        showCalendarEvent(eventId);
+
+    });
+
+    $("#closeCalendarPopup").click(function () {
+
+    $("#calendarEventPopup").slideUp(200);
+
+});
 });
 
 
@@ -61,6 +99,9 @@ function loadEvents() {
             // Store all events
             allEvents = events;
 
+            // Render the calendar after events are loaded
+            renderCalendar();
+            
             // Check whether there are saved filters
             const savedFilters =
                 sessionStorage.getItem("eventFilters");
@@ -83,7 +124,7 @@ function loadEvents() {
 
                 // Apply restored filters AFTER events are loaded
                 applyFilters();
-
+                
             } else {
 
                 // No saved filters
@@ -412,4 +453,135 @@ function registerForEvent(eventId) {
         console.log("Registered for event:", eventId);
 
     }
+}
+
+function renderCalendar() {
+
+    const year = currentCalendarDate.getFullYear();
+
+    const month = currentCalendarDate.getMonth();
+
+
+    const monthName = currentCalendarDate.toLocaleString(
+        "default",
+        {
+            month: "long"
+        }
+    );
+
+
+    $("#calendarMonth").text(
+        `${monthName} ${year}`
+    );
+
+
+    const firstDay = new Date(
+        year,
+        month,
+        1
+    ).getDay();
+
+
+    const daysInMonth = new Date(
+        year,
+        month + 1,
+        0
+    ).getDate();
+
+
+    const calendarDays = $("#calendarDays");
+
+    calendarDays.empty();
+
+
+    // Empty spaces before first day
+    for (let i = 0; i < firstDay; i++) {
+
+        calendarDays.append(`
+            <div class="calendar-day empty"></div>
+        `);
+
+    }
+
+
+    // Generate days
+    for (let day = 1; day <= daysInMonth; day++) {
+
+        const dateString = formatCalendarDate(
+            year,
+            month,
+            day
+        );
+
+
+        const eventForDate = allEvents.find(function (event) {
+
+            return event.date === dateString;
+
+        });
+
+        const hasEvent = eventForDate !== undefined;
+
+
+        calendarDays.append(`
+            <div
+                class="calendar-day ${hasEvent ? "event-day" : ""}"
+                data-date="${dateString}"
+                ${hasEvent ? `data-event-id="${eventForDate.id}"` : ""}
+            >
+                ${day}
+            </div>
+        `);
+
+    }
+
+}
+
+function formatCalendarDate(year, month, day) {
+
+    const monthNumber = String(
+        month + 1
+    ).padStart(2, "0");
+
+
+    const dayNumber = String(
+        day
+    ).padStart(2, "0");
+
+
+    return `${year}-${monthNumber}-${dayNumber}`;
+
+}
+
+function showCalendarEvent(eventId) {
+
+    const event = allEvents.find(function (event) {
+
+        return Number(event.id) === eventId;
+
+    });
+
+
+    if (!event) {
+
+        return;
+
+    }
+
+
+    $("#popupEventTitle").text(event.title);
+
+    $("#popupEventDate").text(event.displayDate);
+
+    $("#popupEventTime").text(event.time);
+
+    $("#popupEventVenue").text(event.venue);
+
+    $("#popupEventSpeaker").text(event.speaker);
+
+    $("#popupEventType").text(event.type);
+
+
+    $("#calendarEventPopup").slideDown(200);
+
 }

@@ -107,452 +107,126 @@
      2. PAGE HEADER
 ========================== -->
 
-<section class="page-header">
+    <section class="page-header">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="breadcrumb-text">
-            Event <span>›</span> Current Semester
+            <div class="breadcrumb-text">
+                Event <span>›</span> Current Semester
+            </div>
+
+            <span class="semester-badge">
+                <i class="bi bi-stars"></i>
+                SPRING 2026 SEMESTER
+            </span>
+
+            <h1>
+                Events & <span>Workshops</span>
+            </h1>
+
+            <p>
+                Browse upcoming workshops, hackathons, talks, and meetups.
+                Register directly from this page.
+            </p>
+
+            <div class="header-tags">
+
+                <span class="tag blue-tag">
+                    6 Upcoming Events
+                </span>
+
+                <span class="tag purple-tag">
+                    Spring 2026 Semester
+                </span>
+
+                <span class="tag green-tag">
+                    Open to All Students
+                </span>
+
+            </div>
+
         </div>
 
-        <span class="semester-badge">
-            <i class="bi bi-stars"></i>
-            SPRING 2026 SEMESTER
-        </span>
-
-        <h1>
-            Events & <span>Workshops</span>
-        </h1>
-
-        <p>
-            Browse upcoming workshops, hackathons, talks, and meetups.
-            Register directly from this page.
-        </p>
-
-        <div class="header-tags">
-
-            <span class="tag blue-tag">
-                6 Upcoming Events
-            </span>
-
-            <span class="tag purple-tag">
-                Spring 2026 Semester
-            </span>
-
-            <span class="tag green-tag">
-                Open to All Students
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================
+    </section>
+    <!-- =========================
      3. SEARCH & FILTER
 ========================== -->
 
-<section class="filter-section">
+    <section class="filter-section">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="filter-grid">
+            <div class="filter-grid">
 
-            <!-- Search -->
-            <div class="filter-item search-field">
+                <!-- Search -->
+                <div class="filter-item search-field">
 
-                <label>SEARCH EVENTS</label>
+                    <label>SEARCH EVENTS</label>
 
-                <div class="input-wrapper">
-                    <i class="bi bi-search"></i>
+                    <div class="input-wrapper">
+                        <i class="bi bi-search"></i>
 
-                    <input
-                        type="text"
-                        id="eventSearch"
-                        placeholder="Search by title, speaker, or topic..."
-                    >
-                </div>
-
-            </div>
-
-
-            <!-- Category -->
-            <div class="filter-item">
-
-                <label>CATEGORY</label>
-
-                <select id="categoryFilter">
-                    <option value="all">All</option>
-                    <option value="workshop">Workshop</option>
-                    <option value="hackathon">Hackathon</option>
-                    <option value="talk">Talk</option>
-                </select>
-
-            </div>
-
-
-            <!-- Date -->
-            <div class="filter-item">
-
-                <label>DATE RANGE</label>
-
-                <select id="dateFilter">
-                    <option value="all">All</option>
-                    <option value="this-month">This Month</option>
-                    <option value="next-month">Next Month</option>
-                </select>
-
-            </div>
-
-
-            <!-- Skill -->
-            <div class="filter-item">
-
-                <label>SKILL LEVEL</label>
-
-                <select id="skillFilter">
-                    <option value="all">All</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-
-            </div>
-
-
-            <!-- Buttons -->
-            <div class="filter-buttons">
-
-                <button id="searchBtn" class="search-btn">
-                    <i class="bi bi-funnel"></i>
-                    Search
-                </button>
-
-                <button id="resetBtn" class="reset-btn">
-                    <i class="bi bi-arrow-counterclockwise"></i>
-                    Reset
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================
-     4. UPCOMING WORKSHOPS
-========================== -->
-<section class="events-section">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="section-icon">
-                <i class="bi bi-book"></i>
-            </div>
-
-            <div>
-                <small>SKILL BUILDING</small>
-                <h2>Upcoming Workshops</h2>
-            </div>
-
-        </div>
-
-        <!-- JavaScript will insert workshop cards here -->
-        <div id="workshopContainer" class="row g-3"></div>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     5. HACKATHONS
-========================== -->
-
-<section class="events-section hackathon-section">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="section-icon">
-                <i class="bi bi-trophy"></i>
-            </div>
-
-            <div>
-                <small>COMPETE & WIN</small>
-                <h2>Hackathons</h2>
-            </div>
-
-        </div>
-
-        <!-- JavaScript will insert hackathon cards here -->
-        <div id="hackathonContainer" class="row g-3"></div>
-
-    </div>
-
-</section>
-<!-- =========================
-     6. EVENT CALENDAR
-========================== -->
-
-<section class="calendar-section">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div>
-                <small>SCHEDULE</small>
-                <h2>Event Calendar</h2>
-            </div>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            <!-- Calendar banner -->
-            <div class="col-lg-7">
-
-                <div class="calendar-banner">
-
-                    <img
-                        src="images/calendar.jpg"
-                        alt="Event Calendar"
-                    >
-
-                    <div class="calendar-overlay">
-
-                        <span>
-                            Spring 2026 · August Schedule
-                        </span>
-
-                        <h3>
-                            6 Events This Month
-                        </h3>
-
+                        <input type="text" id="eventSearch" placeholder="Search by title, speaker, or topic...">
                     </div>
 
                 </div>
 
-                <button class="calendar-btn">
-                    <i class="bi bi-calendar3"></i>
-                    View Full Calendar
-                </button>
 
-            </div>
+                <!-- Category -->
+                <div class="filter-item">
 
+                    <label>CATEGORY</label>
 
-            <!-- Upcoming list -->
-            <div class="col-lg-5">
-
-                <div class="upcoming-box">
-
-                    <h3>Upcoming This Month</h3>
-
-
-                    <div class="upcoming-event">
-
-                        <div class="date-box">
-                            <strong>AUG</strong>
-                            <span>05</span>
-                        </div>
-
-                        <div class="upcoming-info">
-                            <strong>Intro to Machine Learning</strong>
-                            <small>Workshop</small>
-                        </div>
-
-                        <button>Register</button>
-
-                    </div>
-
-
-                    <div class="upcoming-event">
-
-                        <div class="date-box">
-                            <strong>AUG</strong>
-                            <span>06</span>
-                        </div>
-
-                        <div class="upcoming-info">
-                            <strong>Web Dev Bootcamp: React 101</strong>
-                            <small>Workshop</small>
-                        </div>
-
-                        <button>Register</button>
-
-                    </div>
-
-
-                    <div class="upcoming-event">
-
-                        <div class="date-box">
-                            <strong>AUG</strong>
-                            <span>09</span>
-                        </div>
-
-                        <div class="upcoming-info">
-                            <strong>Data Structures Deep Dive</strong>
-                            <small>Workshop</small>
-                        </div>
-
-                        <button>Register</button>
-
-                    </div>
-
-
-                    <div class="upcoming-event">
-
-                        <div class="date-box">
-                            <strong>AUG</strong>
-                            <span>12</span>
-                        </div>
-
-                        <div class="upcoming-info">
-                            <strong>24-Hour Campus Hackathon</strong>
-                            <small>Hackathon</small>
-                        </div>
-
-                        <button>Register</button>
-
-                    </div>
-
-
-                    <div class="upcoming-event">
-
-                        <div class="date-box">
-                            <strong>AUG</strong>
-                            <span>15</span>
-                        </div>
-
-                        <div class="upcoming-info">
-                            <strong>AI Challenge Sprint</strong>
-                            <small>Hackathon</small>
-                        </div>
-
-                        <button>Register</button>
-
-                    </div>
-
-
-                    <div class="upcoming-event">
-
-                        <div class="date-box">
-                            <strong>AUG</strong>
-                            <span>20</span>
-                        </div>
-
-                        <div class="upcoming-info">
-                            <strong>Open Data Jam</strong>
-                            <small>Hackathon</small>
-                        </div>
-
-                        <button>Register</button>
-
-                    </div>
+                    <select id="categoryFilter">
+                        <option value="all">All</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="hackathon">Hackathon</option>
+                        <option value="talk">Talk</option>
+                    </select>
 
                 </div>
 
-            </div>
 
-        </div>
+                <!-- Date -->
+                <div class="filter-item">
 
-    </div>
+                    <label>DATE RANGE</label>
 
-</section>
-
-<!-- =========================
-     7. FOOTER
-========================== -->
-
-<footer class="site-footer">
-
-    <div class="container">
-
-        <div class="row g-4">
-
-            <!-- Club -->
-            <div class="col-lg-4">
-
-                <div class="footer-brand">
-
-                    <div class="brand-icon">
-                        <i class="bi bi-cpu"></i>
-                    </div>
-
-                    <strong>AI & Innovation Club</strong>
+                    <select id="dateFilter">
+                        <option value="all">All</option>
+                        <option value="this-month">This Month</option>
+                        <option value="next-month">Next Month</option>
+                    </select>
 
                 </div>
 
-                <p>
-                    A student-led hub for AI exploration, research,
-                    and innovation at the university. Open to all
-                    disciplines and experience levels.
-                </p>
 
-                <div class="social-icons">
+                <!-- Skill -->
+                <div class="filter-item">
 
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-twitter"></i></a>
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <label>SKILL LEVEL</label>
+
+                    <select id="skillFilter">
+                        <option value="all">All</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
 
                 </div>
 
-            </div>
 
+                <!-- Buttons -->
+                <div class="filter-buttons">
 
-            <!-- Quick links -->
-            <div class="col-lg-2 col-md-4">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="bi bi-funnel"></i>
+                        Search
+                    </button>
 
-                <h4>QUICK LINKS</h4>
-
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="events.html">Events</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="contact.html">Contact</a>
-
-            </div>
-
-
-            <!-- Resources -->
-            <div class="col-lg-2 col-md-4">
-
-                <h4>RESOURCES</h4>
-
-                <a href="#">Club Constitution</a>
-                <a href="#">Meeting Minutes</a>
-                <a href="#">Member Portal</a>
-                <a href="ai-projects.html">AI Projects</a>
-                <a href="#">Apply Now</a>
-
-            </div>
-
-
-            <!-- Newsletter -->
-            <div class="col-lg-4">
-
-                <h4>STAY UPDATED</h4>
-
-                <p>
-                    Get weekly AI insights, event invites, and
-                    research highlights delivered to your inbox.
-                </p>
-
-                <div class="newsletter">
-
-                    <input
-                        type="email"
-                        placeholder="your@email.com"
-                    >
-
-                    <button>
-                        Subscribe
+                    <button id="resetBtn" class="reset-btn">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                        Reset
                     </button>
 
                 </div>
@@ -561,36 +235,403 @@
 
         </div>
 
+    </section>
+    <!-- =========================
+     4. UPCOMING WORKSHOPS
+========================== -->
+    <section class="events-section">
 
-        <hr>
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div class="section-icon">
+                    <i class="bi bi-book"></i>
+                </div>
+
+                <div>
+                    <small>SKILL BUILDING</small>
+                    <h2>Upcoming Workshops</h2>
+                </div>
+
+            </div>
+
+            <!-- JavaScript will insert workshop cards here -->
+            <div id="workshopContainer" class="row g-3"></div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+     5. HACKATHONS
+========================== -->
+
+    <section class="events-section hackathon-section">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div class="section-icon">
+                    <i class="bi bi-trophy"></i>
+                </div>
+
+                <div>
+                    <small>COMPETE & WIN</small>
+                    <h2>Hackathons</h2>
+                </div>
+
+            </div>
+
+            <!-- JavaScript will insert hackathon cards here -->
+            <div id="hackathonContainer" class="row g-3"></div>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     6. EVENT CALENDAR
+========================== -->
+
+    <section class="calendar-section">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div>
+                    <small>SCHEDULE</small>
+                    <h2>Event Calendar</h2>
+                </div>
+
+            </div>
 
 
-        <div class="footer-bottom">
+            <div class="row g-4">
 
-            <span>
-                © 2025 AI & Innovation Club. All rights reserved.
-            </span>
+                <!-- Calendar banner -->
+                <div class="col-lg-7">
 
-            <div>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-                <a href="#">Code of Conduct</a>
+                    <div class="calendar-container">
+                        <div id="calendarEventPopup" class="calendar-event-popup">
+
+                            <button id="closeCalendarPopup" class="calendar-popup-close" type="button">
+                                &times;
+                            </button>
+
+                            <h3 id="popupEventTitle"></h3>
+
+                            <p>
+                                <i class="bi bi-calendar3"></i>
+                                <span id="popupEventDate"></span>
+                            </p>
+
+                            <p>
+                                <i class="bi bi-clock"></i>
+                                <span id="popupEventTime"></span>
+                            </p>
+
+                            <p>
+                                <i class="bi bi-geo-alt"></i>
+                                <span id="popupEventVenue"></span>
+                            </p>
+
+                            <p>
+                                <i class="bi bi-person"></i>
+                                <span id="popupEventSpeaker"></span>
+                            </p>
+
+                            <span id="popupEventType" class="popup-event-type"></span>
+
+                        </div>
+
+                        <div class="calendar-header">
+
+                            <button id="prevMonth" class="calendar-nav" type="button">
+                                &lt;
+                            </button>
+
+                            <h3 id="calendarMonth"></h3>
+
+                            <button id="nextMonth" class="calendar-nav" type="button">
+                                &gt;
+                            </button>
+
+                        </div>
+
+
+                        <div class="calendar-weekdays">
+
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+
+                        </div>
+
+
+                        <div id="calendarDays" class="calendar-days"></div>
+
+
+                        <div class="calendar-legend">
+
+                            <span class="calendar-dot"></span>
+
+                            <span>Event date</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Upcoming list -->
+                <div class="col-lg-5">
+
+                    <div class="upcoming-box">
+
+                        <h3>Upcoming This Month</h3>
+
+
+                        <div class="upcoming-event">
+
+                            <div class="date-box">
+                                <strong>AUG</strong>
+                                <span>05</span>
+                            </div>
+
+                            <div class="upcoming-info">
+                                <strong>Intro to Machine Learning</strong>
+                                <small>Workshop</small>
+                            </div>
+
+                            <button>Register</button>
+
+                        </div>
+
+
+                        <div class="upcoming-event">
+
+                            <div class="date-box">
+                                <strong>AUG</strong>
+                                <span>06</span>
+                            </div>
+
+                            <div class="upcoming-info">
+                                <strong>Web Dev Bootcamp: React 101</strong>
+                                <small>Workshop</small>
+                            </div>
+
+                            <button>Register</button>
+
+                        </div>
+
+
+                        <div class="upcoming-event">
+
+                            <div class="date-box">
+                                <strong>AUG</strong>
+                                <span>09</span>
+                            </div>
+
+                            <div class="upcoming-info">
+                                <strong>Data Structures Deep Dive</strong>
+                                <small>Workshop</small>
+                            </div>
+
+                            <button>Register</button>
+
+                        </div>
+
+
+                        <div class="upcoming-event">
+
+                            <div class="date-box">
+                                <strong>AUG</strong>
+                                <span>12</span>
+                            </div>
+
+                            <div class="upcoming-info">
+                                <strong>24-Hour Campus Hackathon</strong>
+                                <small>Hackathon</small>
+                            </div>
+
+                            <button>Register</button>
+
+                        </div>
+
+
+                        <div class="upcoming-event">
+
+                            <div class="date-box">
+                                <strong>AUG</strong>
+                                <span>15</span>
+                            </div>
+
+                            <div class="upcoming-info">
+                                <strong>AI Challenge Sprint</strong>
+                                <small>Hackathon</small>
+                            </div>
+
+                            <button>Register</button>
+
+                        </div>
+
+
+                        <div class="upcoming-event">
+
+                            <div class="date-box">
+                                <strong>AUG</strong>
+                                <span>20</span>
+                            </div>
+
+                            <div class="upcoming-info">
+                                <strong>Open Data Jam</strong>
+                                <small>Hackathon</small>
+                            </div>
+
+                            <button>Register</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</footer>
+    <!-- =========================
+     7. FOOTER
+========================== -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="row g-4">
+
+                <!-- Club -->
+                <div class="col-lg-4">
+
+                    <div class="footer-brand">
+
+                        <div class="brand-icon">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+
+                        <strong>AI & Innovation Club</strong>
+
+                    </div>
+
+                    <p>
+                        A student-led hub for AI exploration, research,
+                        and innovation at the university. Open to all
+                        disciplines and experience levels.
+                    </p>
+
+                    <div class="social-icons">
+
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Quick links -->
+                <div class="col-lg-2 col-md-4">
+
+                    <h4>QUICK LINKS</h4>
+
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="events.html">Events</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+
+                </div>
+
+
+                <!-- Resources -->
+                <div class="col-lg-2 col-md-4">
+
+                    <h4>RESOURCES</h4>
+
+                    <a href="#">Club Constitution</a>
+                    <a href="#">Meeting Minutes</a>
+                    <a href="#">Member Portal</a>
+                    <a href="ai-projects.html">AI Projects</a>
+                    <a href="#">Apply Now</a>
+
+                </div>
+
+
+                <!-- Newsletter -->
+                <div class="col-lg-4">
+
+                    <h4>STAY UPDATED</h4>
+
+                    <p>
+                        Get weekly AI insights, event invites, and
+                        research highlights delivered to your inbox.
+                    </p>
+
+                    <div class="newsletter">
+
+                        <input type="email" placeholder="your@email.com">
+
+                        <button>
+                            Subscribe
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2025 AI & Innovation Club. All rights reserved.
+                </span>
+
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Code of Conduct</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
 
     <!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<!-- Your Events JavaScript -->
-<script src="js/events.js"></script>
+    <!-- Your Events JavaScript -->
+    <script src="js/events.js"></script>
 
 </body>
 
