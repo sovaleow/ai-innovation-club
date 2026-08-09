@@ -122,7 +122,9 @@ function displayFeaturedProjects(projects) {
 
 
                 <!-- Button -->
-                <button class="view-project-btn">
+                <button
+                    class="view-project-btn project-detail-btn"
+                    data-id="${project.id}">
                     View Project →
                 </button>
 
@@ -140,7 +142,7 @@ function displayFeaturedProjects(projects) {
 }
 
 let currentPage = 1;
-const projectsPerPage = 6;
+const projectsPerPage = 3;
 let allProjectsData = [];
 
 
@@ -206,11 +208,10 @@ function displayAllProjects(projects) {
 
                         <div class="project-tags">
 
-                            ${
-                                project.technologies.map(function (tech) {
-                                    return `<span>${tech}</span>`;
-                                }).join("")
-                            }
+                            ${project.technologies.map(function (tech) {
+            return `<span>${tech}</span>`;
+        }).join("")
+            }
 
                         </div>
 
@@ -241,7 +242,9 @@ function displayAllProjects(projects) {
                         </div>
 
 
-                        <button class="view-project-btn">
+                        <button
+                            class="view-project-btn project-detail-btn"
+                            data-id="${project.id}">
                             Learn more →
                         </button>
 
@@ -403,5 +406,75 @@ $("#projectSort").change(function () {
         }
 
     });
+
+});
+
+$(document).on("click", ".project-detail-btn", function () {
+
+    const projectId = $(this).data("id");
+
+    const project = allProjectsData.find(function (project) {
+        return project.id == projectId;
+    });
+
+    if (!project) {
+        console.error("Project not found:", projectId);
+        return;
+    }
+
+
+    $("#modalProjectImage")
+        .attr("src", project.image)
+        .attr("alt", project.title);
+
+    $("#modalProjectCategory")
+        .text(project.category);
+
+    $("#modalProjectTitle")
+        .text(project.title);
+
+    $("#modalProjectDescription")
+        .text(project.description);
+
+    $("#modalProjectAuthor")
+        .text(project.author);
+
+    $("#modalProjectRole")
+        .text(project.role);
+
+    $("#modalProjectYear")
+        .text(project.year);
+
+
+    const tagsContainer = $("#modalProjectTags");
+
+    tagsContainer.empty();
+
+    project.technologies.forEach(function (technology) {
+
+        tagsContainer.append(
+            `<span>${technology}</span>`
+        );
+
+    });
+
+
+    $("#projectModal").addClass("show");
+
+});
+
+$("#closeProjectModal").click(function () {
+
+    $("#projectModal").removeClass("show");
+
+});
+
+$("#projectModal").click(function (event) {
+
+    if (event.target === this) {
+
+        $(this).removeClass("show");
+
+    }
 
 });

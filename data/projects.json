@@ -42,5 +42,50 @@
         "stars": 67,
         "comments": 15,
         "featured": true
+    },
+    
+    {
+        "id": 4,
+        "title": "SentimentScope",
+        "category": "NLP",
+        "description": "A sentiment analysis platform designed to identify trends in student feedback.",
+        "image": "images/project4.jpg",
+        "technologies": ["spaCy", "FastAPI", "GPT"],
+        "author": "Jane Doe",
+        "role": "ML Research Lead",
+        "year": 2023,
+        "stars": 201,
+        "comments": 32,
+        "featured": false
+    },
+
+    {
+        "id": 5,
+        "title": "ClimatePredict",
+        "category": "Machine Learning",
+        "description": "A machine learning system that predicts environmental trends from historical data.",
+        "image": "images/project5.jpg",
+        "technologies": ["XGBoost", "LSTM", "Plotly"],
+        "author": "Kelly Lim",
+        "role": "AI Engineer",
+        "year": 2023,
+        "stars": 78,
+        "comments": 18,
+        "featured": false
+    },
+    
+    {
+        "id": 6,
+        "title": "AcademicVaultDS",
+        "category": "Data Science",
+        "description": "A curated academic dataset repository prepared for research and data science projects.",
+        "image": "images/project6.jpg",
+        "technologies": ["SQL", "Airflow", "Metabase"],
+        "author": "John Mark",
+        "role": "Data Scientist",
+        "year": 2023,
+        "stars": 55,
+        "comments": 12,
+        "featured": false
     }
 ]
