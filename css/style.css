@@ -1130,7 +1130,7 @@ body {
 
 
     .spotlight-content {
-        padding: 35px;
+        padding: 60px;
     }
 }
 /* Mobile */
@@ -1519,13 +1519,15 @@ body {
 .project-author {
     display: flex;
 
-    align-items: center;
-
     gap: 8px;
 
     margin-bottom: 16px;
 }
 
+.featured-projects .project-author {
+    margin-left: 0;
+    text-align: left;
+}
 
 .author-avatar {
     width: 28px;
@@ -1895,7 +1897,7 @@ body {
 }
 
 .spotlight-content {
-    padding: 42px 45px;
+    padding: 70px 55px;
 
     display: flex;
 
@@ -1923,13 +1925,13 @@ body {
 .spotlight-content h2 {
     margin: 0 0 15px;
 
-    max-width: 520px;
+    max-width: 850px;
 
     color: #ffffff;
 
     font-size: 28px;
 
-    line-height: 1.15;
+    line-height: 1.8;
 
     font-weight: 700;
 }

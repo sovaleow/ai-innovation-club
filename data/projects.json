@@ -8,7 +8,7 @@
         "technologies": ["PyTorch", "BERT", "FastAPI", "React"],
         "author": "Jane Doe",
         "role": "ML Research Lead",
-        "year": 2024,
+        "year": 2026,
         "stars": 142,
         "comments": 38,
         "featured": true
@@ -31,7 +31,7 @@
 
     {
         "id": 3,
-        "title": "Campus Sentiment Analyzer",
+        "title": "OpenCampus Dataset",
         "category": "Data Science",
         "description": "A curated repository of cleaned, annotated academic datasets.",
         "image": "images/project3.jpg",
@@ -53,7 +53,7 @@
         "technologies": ["spaCy", "FastAPI", "GPT"],
         "author": "Jane Doe",
         "role": "ML Research Lead",
-        "year": 2023,
+        "year": 2022,
         "stars": 201,
         "comments": 32,
         "featured": false
@@ -68,12 +68,12 @@
         "technologies": ["XGBoost", "LSTM", "Plotly"],
         "author": "Kelly Lim",
         "role": "AI Engineer",
-        "year": 2023,
+        "year": 2020,
         "stars": 78,
         "comments": 18,
         "featured": false
     },
-    
+
     {
         "id": 6,
         "title": "AcademicVaultDS",
