@@ -210,6 +210,12 @@
             color: #000;
             font-weight: 700;
             cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         /* Cookie Consent Banner Styling */
@@ -274,7 +280,7 @@
     <section>
         <div class="section-title">
             <h1>Get In <span>Touch</span></h1>
-            <p>Please do not hesitate to reach out for us and provide feedbacks.</p>
+            <p>We are here to answer your questions and welcome your feedback.</p>
         </div>
 
         <div class="contact-container">
@@ -292,12 +298,11 @@
                     <i class="fa-solid fa-envelope"></i>
                     <div>
                         <strong>Email Address</strong>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">contact@aiclub.edu.my</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">aiinnovationclub123@gmail.com</p>
                     </div>
                 </div>
 
                 <h3 style="margin-top: 20px;">Social Media</h3>
-                <!-- Updated Social Media Links (Instagram, Facebook, YouTube, TikTok) -->
                 <div class="social-icons">
                     <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                     <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -311,23 +316,23 @@
                 </div>
             </div>
 
-            <!-- Right Box: Contact Form -->
+            <!-- Right Box: Contact Form configured with Formspree -->
             <div class="glass-card">
                 <h2 style="margin-bottom: 20px;">Send a Message</h2>
-                <form id="contactForm">
+                <form id="contactForm" action="https://formspree.io/f/xgawzpvk" method="POST">
                     <div class="input-group">
                         <label for="cName">Name</label>
-                        <input type="text" id="cName" required>
+                        <input type="text" id="cName" name="name" required>
                     </div>
                     <div class="input-group">
                         <label for="cEmail">Email</label>
-                        <input type="email" id="cEmail" required>
+                        <input type="email" id="cEmail" name="email" required>
                     </div>
                     <div class="input-group">
                         <label for="cMsg">Message</label>
-                        <textarea id="cMsg" rows="4" required></textarea>
+                        <textarea id="cMsg" name="message" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                    <button type="submit" id="submitBtn" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
                 </form>
             </div>
         </div>
@@ -387,9 +392,9 @@
             return "";
         }
 
-        // Cookie Consent Banner & Contact Form Logic
+        // Cookie Consent Banner & AJAX Formspree Handler
         $(document).ready(function() {
-            // Check cookie
+            // Check cookie consent
             if (getCookie("cookie_consent") !== "accepted") {
                 $('#cookieBanner').fadeIn();
             }
@@ -399,10 +404,31 @@
                 $('#cookieBanner').fadeOut();
             });
 
+            // Handle AJAX form submission to Formspree
             $('#contactForm').on('submit', function(e) {
                 e.preventDefault();
-                alert('Thank you for contacting us! We will respond shortly.');
-                this.reset();
+                const $form = $(this);
+                const $btn = $('#submitBtn');
+
+                // Visual loading indicator
+                $btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Sending...');
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    method: 'POST',
+                    data: $form.serialize(),
+                    dataType: 'json',
+                    success: function() {
+                        alert('Thank you! Your message has been sent to aiinnovationclub123@gmail.com.');
+                        $form[0].reset();
+                    },
+                    error: function() {
+                        alert('Oops! There was a problem sending your message. Please try again.');
+                    },
+                    complete: function() {
+                        $btn.prop('disabled', false).html('<i class="fa-solid fa-paper-plane"></i> Send Message');
+                    }
+                });
             });
         });
     </script>
