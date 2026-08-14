@@ -1,11 +1,410 @@
+<!--Chan Ken-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contact Us - AI Innovation Club</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 31, 49, 0.7);
+            --primary-cyan: #00f2fe;
+            --primary-purple: #4facfe;
+            --accent-pink: #f72585;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-cyan);
+        }
+
+        .btn-join {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Content Layout */
+        section {
+            padding: 140px 8% 80px;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h1 span {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(12px);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-item i {
+            font-size: 1.4rem;
+            color: var(--primary-cyan);
+        }
+
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-cyan);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        /* Google Map Frame */
+        .map-container {
+            margin-top: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .input-group input, .input-group textarea {
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(11, 15, 25, 0.8);
+            color: #fff;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Cookie Consent Banner Styling */
+        #cookieBanner {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 500px;
+            background: rgba(11, 15, 25, 0.95);
+            border: 1px solid var(--primary-cyan);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(16px);
+            z-index: 2000;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .cookie-btn {
+            background: var(--primary-cyan);
+            color: #000;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            section { padding: 120px 5% 60px; }
+        }
+    </style>
 </head>
 <body>
-    
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-brain"></i> AI Innovation Club
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="join.html">Join Us</a></li>
+            <li><a href="contact.html" class="active">Contact Us</a></li>
+        </ul>
+        <a href="join.html" class="btn-join">Get Started</a>
+    </header>
+
+    <section>
+        <div class="section-title">
+            <h1>Get In <span>Touch</span></h1>
+            <p>Please do not hesitate to reach out for us and provide feedbacks.</p>
+        </div>
+
+        <div class="contact-container">
+            <!-- Left Box: Contact Info, Social Media, Google Map -->
+            <div class="glass-card">
+                <h2 style="margin-bottom: 20px;">Contact Information</h2>
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <strong>Address</strong>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">UTAR Kampar Campus, Perak, Malaysia</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <strong>Email Address</strong>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">contact@aiclub.edu.my</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 20px;">Social Media</h3>
+                <!-- Updated Social Media Links (Instagram, Facebook, YouTube, TikTok) -->
+                <div class="social-icons">
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+
+                <!-- Google Maps Embed -->
+                <div class="map-container">
+                    <iframe src="https://maps.google.com/maps?q=UTAR%20Kampar&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="180" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <!-- Right Box: Contact Form -->
+            <div class="glass-card">
+                <h2 style="margin-bottom: 20px;">Send a Message</h2>
+                <form id="contactForm">
+                    <div class="input-group">
+                        <label for="cName">Name</label>
+                        <input type="text" id="cName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cEmail">Email</label>
+                        <input type="email" id="cEmail" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cMsg">Message</label>
+                        <textarea id="cMsg" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieBanner">
+        <h4 style="color: var(--primary-cyan); margin-bottom: 5px;"><i class="fa-solid fa-cookie-bite"></i> Cookie Preferences</h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">We use cookies and local browser storage technologies to personalize your experience on our website.</p>
+        <button class="cookie-btn" id="acceptCookies">Accept & Continue</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AI Innovation Club. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Particle Background
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        const particles = Array.from({length: 50}, () => ({
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, radius: Math.random() * 2 + 1
+        }));
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.4)'; ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cookie Helper Functions
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        // Cookie Consent Banner & Contact Form Logic
+        $(document).ready(function() {
+            // Check cookie
+            if (getCookie("cookie_consent") !== "accepted") {
+                $('#cookieBanner').fadeIn();
+            }
+
+            $('#acceptCookies').on('click', function() {
+                setCookie("cookie_consent", "accepted", 30);
+                $('#cookieBanner').fadeOut();
+            });
+
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for contacting us! We will respond shortly.');
+                this.reset();
+            });
+        });
+    </script>
 </body>
 </html>
