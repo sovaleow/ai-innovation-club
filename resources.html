@@ -1,1 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - AI Innovation Club</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === Base Styles & Theme Variables === */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 31, 49, 0.7);
+            --primary-cyan: #00f2fe;
+            --primary-purple: #4facfe;
+            --accent-pink: #f72585;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Interactive Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* === Navigation Bar === */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-cyan);
+        }
+
+        .btn-join {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--primary-cyan);
+        }
+
+        /* === General Section Styles === */
+        section {
+            padding: 140px 8% 100px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        
+        .section-title h2 span {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* === Category Image Banners === */
+        .category-banner {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .category-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .category-banner-overlay {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            background: linear-gradient(to right, rgba(11, 15, 25, 0.95) 10%, rgba(11, 15, 25, 0.4) 60%, transparent);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .category-banner h3 {
+            font-size: 2rem;
+            color: #fff;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* === Resources Grid & Card Styles === */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .resource-img-wrapper {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .resource-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .glass-card:hover .resource-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .glass-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .glass-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+
+        .project-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            color: var(--primary-purple);
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        /* === Footer === */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* === Responsive Styles === */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            section { padding: 100px 5% 60px; }
+            .category-banner-overlay { padding: 0 20px; }
+            .category-banner h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particle Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-brain"></i> AI Innovation Club
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="resources.html" class="active">Resources</a></li>
+        </ul>
+        <a href="index.html#join" class="btn-join">Join Us</a>
+    </header>
+
+    <!-- Resources Section -->
+    <section id="resources">
+        <div class="section-title">
+            <h2>Club <span>Resources & Toolkits</span></h2>
+            <p>Curated platforms, datasets, and guides to accelerate your AI and Machine Learning development.</p>
+        </div>
+
+        <!-- CATEGORY 1: Models & Datasets -->
+        <div class="category-banner">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Data and Network Servers">
+            <div class="category-banner-overlay">
+                <h3>Models & Datasets</h3>
+            </div>
+        </div>
+        
+        <div class="grid-container">
+            <!-- Hugging Face -->
+            <div class="glass-card">
+                <div class="resource-img-wrapper">
+                    <img src="https://images.prismic.io/contrary-research/19d1b1f4-90a6-431d-be0e-8ec5cabfd887_Hugging+Face+Long+Logo.png?auto=compress,format" alt="Hugging Face AI Hub">
+                </div>
+                <span class="project-tag">Open Source Hub</span>
+                <h3>Hugging Face</h3>
+                <p>The leading open-source platform for pre-trained AI models, datasets, and natural language processing pipelines.</p>
+                <a href="https://huggingface.co/models" target="_blank" class="btn-secondary">Explore Models</a>
+            </div>
+            
+            <!-- Kaggle -->
+            <div class="glass-card">
+                <div class="resource-img-wrapper">
+                    <img src="https://viso.ai/wp-content/uploads/2024/03/An-overview-of-Kaggle-1280x720.jpg" alt="Data Science Kaggle">
+                </div>
+                <span class="project-tag">Data Science</span>
+                <h3>Kaggle Datasets</h3>
+                <p>Explore thousands of open datasets for your next machine learning training or data science project.</p>
+                <a href="https://www.kaggle.com/datasets" target="_blank" class="btn-secondary">Access Kaggle</a>
+            </div>
+
+            <!-- TensorFlow / PyTorch -->
+            <div class="glass-card">
+                <div class="resource-img-wrapper">
+                    <img src="https://1000logos.net/wp-content/uploads/2020/08/Python-Logo.png" alt="Python Frameworks">
+                </div>
+                <span class="project-tag">Framework</span>
+                <h3>TensorFlow / PyTorch</h3>
+                <p>Official beginner and advanced guides for building robust neural networks and ML architectures.</p>
+                <a href="https://www.tensorflow.org/tutorials" target="_blank" class="btn-secondary">View Tutorials</a>
+            </div>
+        </div>
+
+        <!-- CATEGORY 2: Prompt Engineering & Learning -->
+        <div class="category-banner">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" alt="AI Prompt Engineering">
+            <div class="category-banner-overlay">
+                <h3>Prompt Engineering & Learning</h3>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <!-- OpenAI Guide -->
+            <div class="glass-card">
+                <div class="resource-img-wrapper">
+                    <img src="https://www.logicgate.com/wp-content/uploads/plt-openai-01-hero-01.png" alt="OpenAI Guide">
+                </div>
+                <span class="project-tag">Guide / Documentation</span>
+                <h3>OpenAI Prompt Guide</h3>
+                <p>Best practices and proven strategies for communicating with Large Language Models to get optimal outputs.</p>
+                <a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" class="btn-secondary">Read Guide</a>
+            </div>
+
+            <!-- Learn Prompting -->
+            <div class="glass-card">
+                <div class="resource-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsS2AAN9QU7cKcXtMB-Fi3n7lvS6Henz02m5koukXQamKGrwMmgh9qg_XW&s=10" alt="Online Learning">
+                </div>
+                <span class="project-tag">Courseware</span>
+                <h3>Learn Prompting</h3>
+                <p>A free, open-source curriculum spanning from beginner concepts to advanced prompt engineering techniques.</p>
+                <a href="https://learnprompting.org/" target="_blank" class="btn-secondary">Start Learning</a>
+            </div>
+
+            <!-- Devpost -->
+            <div class="glass-card">
+                <div class="resource-img-wrapper">
+                    <img src="https://cdn.prod.website-files.com/6465152b75f6f7f1c0dfc0e2/66aaab95051fc147aabd3d41_5%20AI%20hackathons%20on%20Devpost.png" alt="Hackathon">
+                </div>
+                <span class="project-tag">Competitions</span>
+                <h3>Devpost Hackathons</h3>
+                <p>Find global online hackathons and innovation challenges to submit your AI projects and win prizes.</p>
+                <a href="https://devpost.com/hackathons" target="_blank" class="btn-secondary">Find Hackathons</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AI Innovation Club. All rights reserved. Built for Next AI-Gen Creators!!!!</p>
+    </footer>
+
+    <!-- Interactive Script (Particle Canvas) -->
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = 60;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 120 * 0.8})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
