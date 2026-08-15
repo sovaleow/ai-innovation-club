@@ -99,27 +99,29 @@ $(document).ready(function () {
 
 function loadEvents() {
 
-    console.log("Trying to load events.json using jQuery AJAX...");
+    console.log("Trying to load events.json...");
 
     $.ajax({
 
-        url: "http://localhost:3000/events",
+        url: "./data/events.json",
         method: "GET",
         dataType: "json",
 
-        success: function (events) {
+        success: function (data) {
 
-            console.log("Events loaded using jQuery:", events);
+            console.log("Events loaded:", data);
 
-            // Store all events
-            allEvents = events;
+            // Get the actual events array
+            allEvents = data.events;
+
+            console.log("All events:", allEvents);
 
             // Render the calendar after events are loaded
             renderCalendar();
 
-            //Upcoming events
+            // Upcoming events
             displayUpcomingEvents(allEvents);
-            console.log("Upcoming events:", events);
+            console.log("Upcoming events:", allEvents);
 
             // Check whether there are saved filters
             const savedFilters =
