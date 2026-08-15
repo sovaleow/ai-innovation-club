@@ -7,18 +7,19 @@
     <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* === Base Styles & Theme Variables === */
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(22, 31, 49, 0.7);
+            --bg-color: #ffffff;
+            --bg-alt: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.85);
             --primary-cyan: #00f2fe;
             --primary-purple: #4facfe;
             --accent-pink: #f72585;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #0b0f19;
+            --text-muted: #475569;
+            --glass-border: rgba(15, 23, 42, 0.08);
         }
 
         * {
@@ -46,6 +47,8 @@
             pointer-events: none;
         }
 
+        a { color: inherit; }
+
         /* === Navigation Bar === */
         header {
             position: fixed;
@@ -55,7 +58,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(11, 15, 25, 0.8);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
@@ -96,6 +99,9 @@
             border-radius: 30px;
             font-weight: 600;
             text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -153,24 +159,30 @@
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(15, 23, 42, 0.04);
             border: 1px solid var(--glass-border);
             color: var(--text-main);
             padding: 12px 28px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 242, 254, 0.06);
+            border-color: rgba(0, 242, 254, 0.3);
         }
 
         /* === General Section Styles === */
         section {
             padding: 100px 8%;
+        }
+
+        .section-alt {
+            background: var(--bg-alt);
         }
 
         .section-title {
@@ -188,7 +200,38 @@
             color: var(--text-muted);
         }
 
-        /* === Feature Grid === */
+        .section-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-header-row h2 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .view-all-link {
+            color: var(--primary-purple);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .view-all-link:hover {
+            color: var(--accent-pink);
+        }
+
+        .center-btn-wrap {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* === Feature Grid (About) === */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -209,7 +252,7 @@
         .glass-card:hover {
             transform: translateY(-8px);
             border-color: rgba(0, 242, 254, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
         }
 
         .card-icon {
@@ -233,11 +276,329 @@
             display: inline-block;
             font-size: 0.75rem;
             padding: 4px 10px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(79, 172, 254, 0.08);
             border-radius: 12px;
             margin-top: 15px;
             color: var(--primary-purple);
             border: 1px solid rgba(79, 172, 254, 0.2);
+        }
+
+        /* === Featured Project Cards === */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+        }
+
+        .project-thumb {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(79, 172, 254, 0.12));
+            color: var(--primary-purple);
+            font-size: 2rem;
+        }
+
+        .project-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .project-category {
+            display: inline-block;
+            align-self: flex-start;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 10px;
+            background: rgba(247, 37, 133, 0.08);
+            color: var(--accent-pink);
+            margin-bottom: 14px;
+        }
+
+        .project-body h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+
+        .project-body p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .project-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .avatar-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .author-info .name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .author-info .role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .btn-outline {
+            display: block;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-cyan);
+            color: var(--primary-purple);
+        }
+
+        /* === Workshops & Events === */
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 22px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .event-row:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+            transform: translateX(4px);
+        }
+
+        .event-date {
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .event-date .month {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .event-date .day {
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 10px;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary-purple);
+            margin-bottom: 8px;
+        }
+
+        .event-info h3 {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .event-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* === News & Newsletter === */
+        .news-layout {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .news-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            width: 90px;
+            flex-shrink: 0;
+        }
+
+        .news-tag {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 9px;
+            border-radius: 10px;
+            background: rgba(79, 172, 254, 0.1);
+            color: var(--primary-purple);
+            width: 110px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .news-title {
+            flex: 1;
+            font-size: 0.92rem;
+            font-weight: 500;
+        }
+
+        .news-view {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .news-view:hover {
+            color: var(--accent-pink);
+        }
+
+        .newsletter-box {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .newsletter-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-box p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--text-main);
+            outline: none;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-box input:focus {
+            border-color: var(--primary-cyan);
+        }
+
+        .newsletter-box .btn-join {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        /* === Stats Bar === */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-item .stat-number {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-item .stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            margin-top: 6px;
+            text-transform: uppercase;
         }
 
         /* === Call to Action / Join Form === */
@@ -264,8 +625,8 @@
             padding: 14px 20px;
             border-radius: 30px;
             border: 1px solid var(--glass-border);
-            background: rgba(11, 15, 25, 0.8);
-            color: #fff;
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-main);
             outline: none;
         }
 
@@ -275,18 +636,101 @@
 
         /* === Footer === */
         footer {
-            text-align: center;
-            padding: 40px;
             border-top: 1px solid var(--glass-border);
+            padding: 70px 8% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .footer-brand p {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.88rem;
+            margin: 16px 0 20px;
+            max-width: 320px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            border-color: var(--primary-cyan);
+            color: var(--primary-purple);
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary-purple);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
         }
 
         /* === Responsive Styles === */
+        @media (max-width: 900px) {
+            .news-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px 20px;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { font-size: 2.2rem; }
             section { padding: 60px 5%; }
+            .news-row { flex-wrap: wrap; }
+            .news-view { margin-left: auto; }
         }
     </style>
 </head>
@@ -301,11 +745,12 @@
             <i class="fa-solid fa-brain"></i> AI Innovation Club
         </div>
         <ul class="nav-links">
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#join">Join Us</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="join.html">Join Us</a></li>
         </ul>
-        <a href="#join" class="btn-join">Get Started</a>
+        <a href="join.html" class="btn-join">Get Started</a>
     </header>
 
     <!-- Hero Section -->
@@ -314,8 +759,8 @@
         <h1>Bridge Creativity & Algorithms,<br>Reshape the Future with <span>Artificial Intelligence</span></h1>
         <p>AI Innovation Club is a community for tech enthusiasts, researchers, and creators. Whether you build models or design products, your AI journey starts here.</p>
         <div class="cta-group">
-            <a href="#join" class="btn-join" style="padding: 12px 32px;">Join the Club</a>
-            <a href="#projects" class="btn-secondary">Explore Projects</a>
+            <a href="join.html" class="btn-join" style="padding: 12px 32px;">Join Now</a>
+            <a href="projects.html" class="btn-secondary">Explore Projects</a>
         </div>
     </section>
 
@@ -345,32 +790,177 @@
         </div>
     </section>
 
-    <!-- Show Project Section -->
-    <section id="projects">
+    <!-- Featured AI Projects Section -->
+    <section id="projects" class="section-alt">
         <div class="section-title">
-            <h2>Incubated Projects</h2>
-            <p>Experimental AI applications built and maintained by club members</p>
+            <h2>Featured AI Projects</h2>
+            <p>A rotating showcase of standout work from across the club's research and engineering teams</p>
         </div>
-        <div class="grid-container">
-            <div class="glass-card">
-                <h3>Campus-GPT Agent</h3>
-                <p>A domain-specific AI assistant trained on campus knowledge bases to help students navigate course selection and campus life.</p>
-                <span class="project-tag">LLM / LangChain</span>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-thumb"><i class="fa-solid fa-comments"></i></div>
+                <div class="project-body">
+                    <span class="project-category">NLP</span>
+                    <h3>Campus-GPT Sentiment Analyzer</h3>
+                    <p>A real-time NLP pipeline that aggregates and visualizes student feedback across campus by emerging category.</p>
+                    <div class="project-author">
+                        <div class="avatar-circle">JD</div>
+                        <div class="author-info">
+                            <div class="name">Jane Doe</div>
+                            <div class="role">Senior Designer</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-outline">View Project</a>
+                </div>
             </div>
-            <div class="glass-card">
-                <h3>AutoSight Vision Assistant</h3>
-                <p>Real-time object detection mobile app integrated with audio feedback to assist visually impaired individuals in navigation.</p>
-                <span class="project-tag">Computer Vision / YOLOv8</span>
+            <div class="project-card">
+                <div class="project-thumb"><i class="fa-solid fa-calendar-days"></i></div>
+                <div class="project-body">
+                    <span class="project-category">Machine Learning</span>
+                    <h3>Smart Study Scheduler</h3>
+                    <p>Personalized study plan generation using reinforcement learning, adapted to individual learning patterns and upcoming exam schedules.</p>
+                    <div class="project-author">
+                        <div class="avatar-circle">KL</div>
+                        <div class="author-info">
+                            <div class="name">Kelly Lim</div>
+                            <div class="role">Project Lead</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-outline">View Project</a>
+                </div>
             </div>
-            <div class="glass-card">
-                <h3>CodeMorph AI</h3>
-                <p>A developer extension that analyzes legacy codebases and generates optimized, modernized refactored code snippets.</p>
-                <span class="project-tag">Fine-Tuned Model</span>
+            <div class="project-card">
+                <div class="project-thumb"><i class="fa-solid fa-database"></i></div>
+                <div class="project-body">
+                    <span class="project-category">Data Science</span>
+                    <h3>Campus Research Archive</h3>
+                    <p>A curated repository of cleaned, annotated academic datasets contributed and maintained by club members for open research.</p>
+                    <div class="project-author">
+                        <div class="avatar-circle">JM</div>
+                        <div class="author-info">
+                            <div class="name">John Mark</div>
+                            <div class="role">Data Engineer</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-outline">View Project</a>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Upcoming Workshops & Events Section -->
+    <section id="events">
+        <div class="section-title">
+            <h2>Upcoming Workshops & Events</h2>
+            <p>Hands-on sessions and talks run by club members and industry guests</p>
+        </div>
+        <div class="events-list">
+            <div class="event-row">
+                <div class="event-date"><span class="month">MAR</span><span class="day">12</span></div>
+                <div class="event-info">
+                    <span class="event-tag">Workshop</span>
+                    <h3>Intro to Large Language Models</h3>
+                    <p>7:00 PM · Engineering Building, Lab 3</p>
+                </div>
+            </div>
+            <div class="event-row">
+                <div class="event-date"><span class="month">MAR</span><span class="day">19</span></div>
+                <div class="event-info">
+                    <span class="event-tag">Talk</span>
+                    <h3>How to Get Your First AI Research Internship</h3>
+                    <p>6:30 PM · Online via Zoom</p>
+                </div>
+            </div>
+            <div class="event-row">
+                <div class="event-date"><span class="month">APR</span><span class="day">02</span></div>
+                <div class="event-info">
+                    <span class="event-tag">Hackathon</span>
+                    <h3>Innovation Sprint: Build an Agent in a Weekend</h3>
+                    <p>9:00 AM · Innovation Hub, Level 2</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Latest News & Newsletter Section -->
+    <section id="news" class="section-alt">
+        <div class="section-header-row">
+            <h2>Latest News & Announcements</h2>
+        </div>
+        <div class="news-layout">
+            <div>
+                <div class="news-list">
+                    <div class="news-row">
+                        <span class="news-date">Jul 25, 2026</span>
+                        <span class="news-tag">Announcement</span>
+                        <span class="news-title">Club Receives University Innovation Grant for Fall Semester Research</span>
+                        <a href="#" class="news-view">View</a>
+                    </div>
+                    <div class="news-row">
+                        <span class="news-date">Jul 20, 2026</span>
+                        <span class="news-tag">Recap</span>
+                        <span class="news-title">Team Members Place 2nd at National Collegiate AI Competition</span>
+                        <a href="#" class="news-view">View</a>
+                    </div>
+                    <div class="news-row">
+                        <span class="news-date">Jul 15, 2026</span>
+                        <span class="news-tag">Blog</span>
+                        <span class="news-title">Recap: Summer Bootcamp - 40 Students, 12 Projects, Countless Insights</span>
+                        <a href="#" class="news-view">View</a>
+                    </div>
+                    <div class="news-row">
+                        <span class="news-date">Jul 08, 2026</span>
+                        <span class="news-tag">Announcement</span>
+                        <span class="news-title">Club Receives University Innovation Grant for Fall Semester Research</span>
+                        <a href="#" class="news-view">View</a>
+                    </div>
+                    <div class="news-row">
+                        <span class="news-date">Jul 02, 2026</span>
+                        <span class="news-tag">Recap</span>
+                        <span class="news-title">Club Received University Innovation Grant for Fall Semester Research</span>
+                        <a href="#" class="news-view">View</a>
+                    </div>
+                </div>
+                <div class="center-btn-wrap" style="text-align:left; margin-top:30px;">
+                    <a href="#" class="btn-outline" style="display:inline-block; padding: 10px 26px;">All News</a>
+                </div>
+            </div>
+            <div class="newsletter-box">
+                <h3>Stay In The Loop</h3>
+                <p>Get workshop invites, project drops, and club news delivered straight to your inbox.</p>
+                <form onsubmit="handleNewsletter(event)">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-join">Subscribe</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Join Us Section part ~~ -->
+    <!-- Stats Section -->
+    <section>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">340+</div>
+                <div class="stat-label">Active Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">58</div>
+                <div class="stat-label">Workshops Held</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24</div>
+                <div class="stat-label">AI Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Industry Partners</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Us Section -->
     <section id="join">
         <div class="glass-card join-section" style="padding: 60px 30px;">
             <h2>Ready to Start Your AI Journey?</h2>
@@ -382,10 +972,81 @@
         </div>
     </section>
 
-    <!-- this is footer -->
-    <footer>
-        <p>&copy; 2026 AI Innovation Club. All rights reserved. Built for Next AI-Gen Creators!!!!</p>
-    </footer>
+    <!-- Footer -->
+     <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="row g-4">
+
+                <!-- Club -->
+                <div class="col-lg-4">
+
+                    <div class="footer-brand">
+
+                        <div class="brand-icon">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+
+                        <strong>AI & Innovation Club</strong>
+
+                    </div>
+
+                    <p class="footer-description">
+                        A student-led hub for AI exploration, research,
+                        and innovation at the university. Open to all
+                        disciplines and experience levels.
+                    </p>
+
+                    <div class="social-icons">
+
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Quick Links -->
+                <div class="col-lg-4 col-md-6">
+
+                    <h4>QUICK LINKS</h4>
+
+                    <div class="row">
+
+                        <!-- Quick Links Column 1 -->
+                        <div class="col-6">
+
+                            <a href="index.html">Home</a>
+
+                            <a href="events.html">Events</a>
+
+                            <a href="gallery.html">Gallery</a>
+
+                            <a href="contact.html">Contact</a>
+
+                        </div>
+
+
+                        <!-- Quick Links Column 2 -->
+                        <div class="col-6">
+
+                            <a href="about.html">About Us</a>
+
+                            <a href="resources.html">Resources</a>
+
+                            <a href="projects.html">AI Projects</a>
+
+                            <a href="join.html">Join Us</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
     <!-- Interactive Script (Particle Canvas & Handlers) -->
     <script>
@@ -460,10 +1121,16 @@
         }
         animate();
 
-        // Form Submission Handler
+        // Form Submission Handlers
         function handleJoin(e) {
             e.preventDefault();
             alert('Thank you for your interest! Your application has been submitted successfully. We will reach out via email soon.');
+            e.target.reset();
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            alert('Subscribed! You will start receiving club updates in your inbox.');
             e.target.reset();
         }
     </script>
