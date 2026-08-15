@@ -520,11 +520,14 @@
 
                         <div class="newsletter">
 
-                            <input type="email" placeholder="your@email.com">
+                            <input class="newsletter-email" type="email" placeholder="your@email.com"
+                                aria-label="Email address" autocomplete="email" required>
 
-                            <button>
+                            <button class="newsletter-btn" type="button">
                                 Subscribe
                             </button>
+
+                            <small class="newsletter-message" aria-live="polite"></small>
 
                         </div>
 
@@ -556,7 +559,8 @@
 
         <!-- Your Events JavaScript -->
         <script src="js/events.js"></script>
-
+        <script src="js/newsletter.js"></script>
+        
         <script defer src="https://static.addtoany.com/menu/page.js">
         </script>
 

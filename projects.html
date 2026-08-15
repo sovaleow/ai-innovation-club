@@ -291,7 +291,7 @@
 
                     <div class="spotlight-actions">
 
-                        <a href="#FeaturedProjects" class="spotlight-primary">
+                        <a href="#allProjects" class="spotlight-primary">
                             View Other Projects →
                         </a>
 
@@ -388,11 +388,14 @@
 
                     <div class="newsletter">
 
-                        <input type="email" placeholder="your@email.com">
+                        <input class="newsletter-email" type="email" placeholder="your@email.com"
+                            aria-label="Email address" autocomplete="email" required>
 
-                        <button>
+                        <button class="newsletter-btn" type="button">
                             Subscribe
                         </button>
+
+                        <small class="newsletter-message" aria-live="polite"></small>
 
                     </div>
 
@@ -400,17 +403,19 @@
 
             </div>
 
+        </div>
 
-            <hr>
+
+        <hr>
 
 
-            <div class="footer-bottom">
+        <div class="footer-bottom">
 
-                <span>
-                    © 2026 AI & Innovation Club. All rights reserved.
-                </span>
+            <span>
+                © 2026 AI & Innovation Club. All rights reserved.
+            </span>
 
-            </div>
+        </div>
 
         </div>
 
@@ -457,6 +462,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script src="js/projects.js"></script>
+    <script src="js/newsletter.js"></script>
 </body>
 
 </html>
