@@ -440,22 +440,17 @@ body {
 .event-type,
 .event-level {
     position: absolute;
-
     top: 8px;
-
     padding: 4px 7px;
-
     border-radius: 7px;
-
+    background: white;
+    color: #3c6ee9;
     font-size: 8px;
     font-weight: 700;
 }
 
 .event-type {
     left: 8px;
-
-    background: white;
-    color: #3c6ee9;
 }
 
 .event-level {
