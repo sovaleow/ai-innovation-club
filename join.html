@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Us - AI Innovation Club</title>
-    <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
+        /* === Light Theme Variables from index.html === */
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(22, 31, 49, 0.7);
+            --bg-color: #ffffff;
+            --bg-alt: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.85);
             --primary-cyan: #00f2fe;
             --primary-purple: #4facfe;
             --accent-pink: #f72585;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #0b0f19;
+            --text-muted: #475569;
+            --glass-border: rgba(15, 23, 42, 0.08);
         }
 
         * {
@@ -56,7 +56,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(11, 15, 25, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
@@ -87,17 +87,22 @@
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-cyan);
+            color: var(--primary-purple);
         }
 
         .btn-join {
             background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
-            color: #000;
+            color: #ffffff;
             padding: 10px 24px;
             border-radius: 30px;
             font-weight: 600;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3);
         }
 
         /* Sections */
@@ -111,10 +116,20 @@
             margin-bottom: 40px;
         }
 
+        .section-title h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
         .section-title h1 span {
-            background: linear-gradient(135deg, var(--primary-cyan), var(--accent-pink));
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
         }
 
         .glass-card {
@@ -125,6 +140,7 @@
             backdrop-filter: blur(12px);
             max-width: 800px;
             margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
         }
 
         /* Membership Info Cards */
@@ -136,7 +152,7 @@
         }
 
         .info-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-alt);
             border: 1px solid var(--glass-border);
             padding: 20px;
             border-radius: 12px;
@@ -145,7 +161,7 @@
 
         .info-card i {
             font-size: 2rem;
-            color: var(--primary-cyan);
+            color: var(--primary-purple);
             margin-bottom: 10px;
         }
 
@@ -165,7 +181,7 @@
 
         .input-group label {
             font-size: 0.9rem;
-            color: var(--text-muted);
+            color: var(--text-main);
             font-weight: 600;
         }
 
@@ -173,17 +189,20 @@
             padding: 14px 18px;
             border-radius: 12px;
             border: 1px solid var(--glass-border);
-            background: rgba(11, 15, 25, 0.8);
-            color: #fff;
+            background: var(--bg-color);
+            color: var(--text-main);
             outline: none;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
         }
 
         .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
-            border-color: var(--primary-cyan);
+            border-color: var(--primary-purple);
         }
 
         .input-group select option {
             background: var(--bg-color);
+            color: var(--text-main);
         }
 
         .error-msg {
@@ -198,20 +217,47 @@
             border: none;
             border-radius: 30px;
             background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
-            color: #000;
+            color: #ffffff;
             font-weight: 800;
             font-size: 1rem;
             cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
         }
 
         .session-badge {
             display: inline-block;
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--primary-cyan);
+            background: rgba(79, 172, 254, 0.1);
+            color: var(--primary-purple);
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Storage Data Preview Table */
+        .records-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .records-table th, .records-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-main);
+        }
+
+        .records-table th {
+            color: var(--primary-purple);
+            font-weight: 700;
         }
 
         footer {
@@ -220,6 +266,7 @@
             border-top: 1px solid var(--glass-border);
             color: var(--text-muted);
             font-size: 0.85rem;
+            background-color: var(--bg-alt);
         }
 
         @media (max-width: 768px) {
@@ -239,6 +286,10 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="resources.html">Resources</a></li>
             <li><a href="join.html" class="active">Join Us</a></li>
             <li><a href="contact.html">Contact Us</a></li>
         </ul>
@@ -251,7 +302,6 @@
             <p>Become an official member of the AI Innovation Club today.</p>
         </div>
 
-        <!-- Membership Information Section -->
         <div class="glass-card">
             <h2 style="margin-bottom: 20px; text-align: center;">Membership Benefits</h2>
             <div class="info-grid">
@@ -273,7 +323,6 @@
             </div>
         </div>
 
-        <!-- Registration Form with Session Storage & Validation -->
         <div class="glass-card">
             <span class="session-badge"><i class="fa-solid fa-floppy-disk"></i> Session Storage Active: Auto-saving your progress</span>
             
@@ -317,10 +366,28 @@
                 <button type="submit" class="submit-btn"><i class="fa-solid fa-user-plus"></i> Complete Registration</button>
             </form>
         </div>
+
+        <div class="glass-card">
+            <h3 style="color: var(--primary-purple); margin-bottom: 15px;"><i class="fa-solid fa-database"></i> Registered Members (Saved in LocalStorage)</h3>
+            <div style="overflow-x: auto;">
+                <table class="records-table" id="membersTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Student ID</th>
+                            <th>Track</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <button id="clearStorageBtn" style="margin-top: 15px; background: transparent; border: 1px solid var(--accent-pink); color: var(--accent-pink); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Clear Stored Members</button>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 AI Innovation Club. All rights reserved.</p>
+        <p>© 2026 AI Innovation Club. All rights reserved.</p>
     </footer>
 
     <script>
@@ -330,9 +397,9 @@
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-        const particles = Array.from({length: 50}, () => ({
+        const particles = Array.from({length: 40}, () => ({
             x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, radius: Math.random() * 2 + 1
+            vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, radius: Math.random() * 2 + 1
         }));
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -341,14 +408,29 @@
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
                 ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 242, 254, 0.4)'; ctx.fill();
+                ctx.fillStyle = 'rgba(79, 172, 254, 0.15)'; ctx.fill();
             });
             requestAnimationFrame(animate);
         }
         animate();
 
-        // SessionStorage & Form Validation Logic
+        // SessionStorage, LocalStorage & Form Validation Logic
         $(document).ready(function() {
+            // Load members from LocalStorage
+            function loadMembers() {
+                const members = JSON.parse(localStorage.getItem('ai_club_members') || '[]');
+                const $tbody = $('#membersTable tbody').empty();
+                if (members.length === 0) {
+                    $tbody.append('<tr><td colspan="3" style="text-align:center; color: var(--text-muted);">No stored applications found.</td></tr>');
+                } else {
+                    members.forEach(m => {
+                        $tbody.append(`<tr><td>${m.name}</td><td>${m.id}</td><td>${m.track}</td></tr>`);
+                    });
+                }
+            }
+
+            loadMembers();
+
             // Restore draft values from SessionStorage
             $('#fullName').val(sessionStorage.getItem('draft_name') || '');
             $('#studentId').val(sessionStorage.getItem('draft_id') || '');
@@ -365,7 +447,7 @@
                 sessionStorage.setItem('draft_motivation', $('#motivation').val());
             });
 
-            // Strict Form Validation
+            // Form Validation
             $('#joinForm').on('submit', function(e) {
                 e.preventDefault();
                 let isValid = true;
@@ -382,15 +464,21 @@
                 if (!track) { $('#trackErr').show(); isValid = false; }
 
                 if (isValid) {
-                    // Save final user profile into LocalStorage
-                    const userProfile = { name, id, email, track };
-                    localStorage.setItem('registered_member', JSON.stringify(userProfile));
+                    const newMember = { name, id, email, track };
+                    const members = JSON.parse(localStorage.getItem('ai_club_members') || '[]');
+                    members.push(newMember);
+                    localStorage.setItem('ai_club_members', JSON.stringify(members));
 
-                    // Clear temporary draft from SessionStorage
                     sessionStorage.clear();
                     alert('Registration Successful! Your details are stored locally.');
                     this.reset();
+                    loadMembers();
                 }
+            });
+
+            $('#clearStorageBtn').on('click', function() {
+                localStorage.removeItem('ai_club_members');
+                loadMembers();
             });
         });
     </script>
