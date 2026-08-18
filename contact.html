@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - AI Innovation Club</title>
-    <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
+        /* === Light Theme Variables from index.html === */
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(22, 31, 49, 0.7);
+            --bg-color: #ffffff;
+            --bg-alt: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.85);
             --primary-cyan: #00f2fe;
             --primary-purple: #4facfe;
             --accent-pink: #f72585;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #0b0f19;
+            --text-muted: #475569;
+            --glass-border: rgba(15, 23, 42, 0.08);
         }
 
         * {
@@ -56,7 +56,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(11, 15, 25, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
@@ -87,16 +87,17 @@
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-cyan);
+            color: var(--primary-purple);
         }
 
         .btn-join {
             background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
-            color: #000;
+            color: #ffffff;
             padding: 10px 24px;
             border-radius: 30px;
             font-weight: 600;
             text-decoration: none;
+            transition: transform 0.3s ease;
         }
 
         /* Content Layout */
@@ -111,9 +112,13 @@
         }
 
         .section-title h1 span {
-            background: linear-gradient(135deg, var(--primary-cyan), var(--accent-pink));
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
         }
 
         .contact-container {
@@ -130,6 +135,7 @@
             border-radius: 20px;
             padding: 35px;
             backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
         }
 
         .info-item {
@@ -141,7 +147,7 @@
 
         .info-item i {
             font-size: 1.4rem;
-            color: var(--primary-cyan);
+            color: var(--primary-purple);
         }
 
         /* Social Media Icons */
@@ -155,9 +161,9 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-alt);
             border: 1px solid var(--glass-border);
-            color: var(--text-main);
+            color: var(--text-muted);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -166,8 +172,8 @@
         }
 
         .social-icons a:hover {
-            background: var(--primary-cyan);
-            color: #000;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #ffffff;
             transform: translateY(-3px);
         }
 
@@ -188,7 +194,7 @@
 
         .input-group label {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--text-main);
             font-weight: 600;
         }
 
@@ -196,9 +202,13 @@
             padding: 12px 16px;
             border-radius: 10px;
             border: 1px solid var(--glass-border);
-            background: rgba(11, 15, 25, 0.8);
-            color: #fff;
+            background: var(--bg-color);
+            color: var(--text-main);
             outline: none;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--primary-purple);
         }
 
         .submit-btn {
@@ -207,7 +217,7 @@
             border: none;
             border-radius: 25px;
             background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
-            color: #000;
+            color: #ffffff;
             font-weight: 700;
             cursor: pointer;
             transition: opacity 0.3s ease;
@@ -225,19 +235,19 @@
             left: 20px;
             right: 20px;
             max-width: 500px;
-            background: rgba(11, 15, 25, 0.95);
-            border: 1px solid var(--primary-cyan);
+            background: var(--bg-color);
+            border: 1px solid var(--primary-purple);
             border-radius: 16px;
             padding: 20px;
             backdrop-filter: blur(16px);
             z-index: 2000;
             display: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
         }
 
         .cookie-btn {
-            background: var(--primary-cyan);
-            color: #000;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #ffffff;
             border: none;
             padding: 8px 20px;
             border-radius: 20px;
@@ -252,6 +262,7 @@
             border-top: 1px solid var(--glass-border);
             color: var(--text-muted);
             font-size: 0.85rem;
+            background-color: var(--bg-alt);
         }
 
         @media (max-width: 768px) {
@@ -271,6 +282,10 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="resources.html">Resources</a></li>
             <li><a href="join.html">Join Us</a></li>
             <li><a href="contact.html" class="active">Contact Us</a></li>
         </ul>
@@ -284,7 +299,6 @@
         </div>
 
         <div class="contact-container">
-            <!-- Left Box: Contact Info, Social Media, Google Map -->
             <div class="glass-card">
                 <h2 style="margin-bottom: 20px;">Contact Information</h2>
                 <div class="info-item">
@@ -310,13 +324,11 @@
                     <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
 
-                <!-- Google Maps Embed -->
                 <div class="map-container">
                     <iframe src="https://maps.google.com/maps?q=UTAR%20Kampar&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="180" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
 
-            <!-- Right Box: Contact Form configured with Formspree -->
             <div class="glass-card">
                 <h2 style="margin-bottom: 20px;">Send a Message</h2>
                 <form id="contactForm" action="https://formspree.io/f/xgawzpvk" method="POST">
@@ -338,15 +350,14 @@
         </div>
     </section>
 
-    <!-- Cookie Consent Banner -->
     <div id="cookieBanner">
-        <h4 style="color: var(--primary-cyan); margin-bottom: 5px;"><i class="fa-solid fa-cookie-bite"></i> Cookie Preferences</h4>
+        <h4 style="color: var(--primary-purple); margin-bottom: 5px;"><i class="fa-solid fa-cookie-bite"></i> Cookie Preferences</h4>
         <p style="font-size: 0.85rem; color: var(--text-muted);">We use cookies and local browser storage technologies to personalize your experience on our website.</p>
         <button class="cookie-btn" id="acceptCookies">Accept & Continue</button>
     </div>
 
     <footer>
-        <p>&copy; 2026 AI Innovation Club. All rights reserved.</p>
+        <p>© 2026 AI Innovation Club. All rights reserved.</p>
     </footer>
 
     <script>
@@ -356,9 +367,9 @@
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-        const particles = Array.from({length: 50}, () => ({
+        const particles = Array.from({length: 40}, () => ({
             x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, radius: Math.random() * 2 + 1
+            vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, radius: Math.random() * 2 + 1
         }));
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -367,7 +378,7 @@
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
                 ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 242, 254, 0.4)'; ctx.fill();
+                ctx.fillStyle = 'rgba(79, 172, 254, 0.15)'; ctx.fill();
             });
             requestAnimationFrame(animate);
         }
@@ -394,7 +405,6 @@
 
         // Cookie Consent Banner & AJAX Formspree Handler
         $(document).ready(function() {
-            // Check cookie consent
             if (getCookie("cookie_consent") !== "accepted") {
                 $('#cookieBanner').fadeIn();
             }
@@ -404,13 +414,11 @@
                 $('#cookieBanner').fadeOut();
             });
 
-            // Handle AJAX form submission to Formspree
             $('#contactForm').on('submit', function(e) {
                 e.preventDefault();
                 const $form = $(this);
                 const $btn = $('#submitBtn');
 
-                // Visual loading indicator
                 $btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Sending...');
 
                 $.ajax({
