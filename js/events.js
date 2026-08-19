@@ -99,57 +99,77 @@ $(document).ready(function () {
 
 function loadEvents() {
 
-    console.log("Trying to load events.json...");
+    console.log("Requesting events from GitHub REST API...");
 
     $.ajax({
 
-        url: "./data/events.json",
+        url: "https://api.github.com/repos/sovaleow/ai-innovation-club/contents/data/events.json",
         method: "GET",
         dataType: "json",
 
+        headers: {
+            "Accept": "application/vnd.github+json"
+        },
+
         success: function (data) {
 
-            console.log("Events loaded:", data);
+            try {
 
-            // Get the actual events array
-            allEvents = data.events;
+                // GitHub API returns file content as Base64
+                const base64Content = data.content.replace(/\n/g, "");
 
-            console.log("All events:", allEvents);
+                // Decode Base64 into normal text
+                const binaryString = atob(base64Content);
+                const bytes = new Uint8Array(binaryString.length);
 
-            // Render the calendar after events are loaded
-            renderCalendar();
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
 
-            // Upcoming events
-            displayUpcomingEvents(allEvents);
-            console.log("Upcoming events:", allEvents);
+                const jsonText = new TextDecoder("utf-8").decode(bytes);
 
-            // Check whether there are saved filters
-            const savedFilters =
-                sessionStorage.getItem("eventFilters");
+                // Convert JSON text into JavaScript object
+                const parsedData = JSON.parse(jsonText);
 
-            if (savedFilters) {
+                console.log("Events received from REST API:", parsedData);
 
-                const filterState =
-                    JSON.parse(savedFilters);
+                // Get the actual events array
+                allEvents = parsedData.events;
 
-                // Restore filter UI
-                $("#eventSearch").val(filterState.search);
-                $("#categoryFilter").val(filterState.category);
-                $("#dateFilter").val(filterState.date);
-                $("#skillFilter").val(filterState.skill);
+                // Render calendar
+                renderCalendar();
 
-                console.log(
-                    "Filter state restored:",
-                    filterState
+                // Display upcoming events
+                displayUpcomingEvents(allEvents);
+
+                // Restore saved filters
+                const savedFilters =
+                    sessionStorage.getItem("eventFilters");
+
+                if (savedFilters) {
+
+                    const filterState =
+                        JSON.parse(savedFilters);
+
+                    $("#eventSearch").val(filterState.search);
+                    $("#categoryFilter").val(filterState.category);
+                    $("#dateFilter").val(filterState.date);
+                    $("#skillFilter").val(filterState.skill);
+
+                    applyFilters();
+
+                } else {
+
+                    displayEvents(allEvents);
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to parse events returned by REST API:",
+                    error
                 );
-
-                // Apply restored filters AFTER events are loaded
-                applyFilters();
-
-            } else {
-
-                // No saved filters
-                displayEvents(allEvents);
 
             }
 
@@ -157,7 +177,16 @@ function loadEvents() {
 
         error: function (xhr, status, error) {
 
-            console.error("Failed to load events:", error);
+            console.error(
+                "Failed to load events from REST API:",
+                error
+            );
+
+            $("#workshopContainer").html(
+                '<p class="text-danger">Unable to load events. Please try again later.</p>'
+            );
+
+            $("#hackathonContainer").empty();
 
         }
 
