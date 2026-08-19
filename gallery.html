@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - AI Innovation Club</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome & Bootstrap Icons (for footer) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        /* === Base Styles & Theme Variables === */
+        :root {
+            --bg-color: #ffffff;
+            --bg-alt: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --primary-cyan: #00f2fe;
+            --primary-purple: #4facfe;
+            --accent-pink: #f72585;
+            --text-main: #0b0f19;
+            --text-muted: #475569;
+            --glass-border: rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* === Common Elements === */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+
+        section { padding: 120px 8% 80px; }
+        
+        .section-header { margin-bottom: 50px; text-align: center; }
+        .section-header .subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary-purple);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .section-header h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 15px;}
+        .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto;}
+
+        /* === Navigation Bar === */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .logo-box {
+            width: 24px; height: 24px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            border-radius: 4px;
+        }
+
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); font-weight: 600; border-bottom: 2px solid var(--primary-cyan); padding-bottom: 4px;}
+
+        /* === Gallery Layout === */
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+            border-color: var(--primary-purple);
+            color: var(--primary-purple);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 20px 20px;
+            background: linear-gradient(to top, rgba(11, 15, 25, 0.9), transparent);
+            color: #fff;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+
+        .gallery-overlay h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .gallery-overlay p { font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+        
+        .gallery-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-main);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            backdrop-filter: blur(5px);
+        }
+
+        /* === Lightbox Modal Styles === */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 85%;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            object-fit: contain;
+        }
+
+        .image-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-caption {
+            margin-top: 20px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-cyan);
+        }
+
+        /* === Footer === */
+        .site-footer {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 8% 40px;
+        }
+        .site-footer .container { max-width: 1200px; margin: 0 auto; }
+        .site-footer .row { display: flex; flex-wrap: wrap; margin: -15px; }
+        .site-footer .col-lg-4, .site-footer .col-md-6, .site-footer .col-6 { padding: 15px; }
+        @media (min-width: 992px) { .site-footer .col-lg-4 { flex: 0 0 auto; width: 33.33333333%; } }
+        @media (min-width: 768px) and (max-width: 991px) { .site-footer .col-md-6 { flex: 0 0 auto; width: 50%; } }
+        .site-footer .col-6 { flex: 0 0 auto; width: 50%; }
+        .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 1.2rem; }
+        .brand-icon { color: var(--primary-purple); font-size: 1.5rem; }
+        .footer-description { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; max-width: 300px; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-icons a {
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); transition: all 0.3s;
+        }
+        .social-icons a:hover { border-color: var(--primary-cyan); color: var(--primary-purple); }
+        .site-footer h4 { font-size: 0.95rem; margin-bottom: 20px; letter-spacing: 0.5px; }
+        .site-footer .col-6 a { display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px; transition: color 0.3s; }
+        .site-footer .col-6 a:hover { color: var(--primary-purple); }
+
+        @media (max-width: 768px) { .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="logo">
+            <div class="logo-box"></div>
+            AI & Innovation Club
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="projects.html">AI Projects</a></li>
+        </ul>
+        <a href="join.html" class="btn-primary" style="padding: 8px 20px;">Join Us</a>
+    </header>
+
+    <section>
+        <div class="section-header">
+            <span class="subtitle">Memories & Milestones</span>
+            <h2>Club Gallery</h2>
+            <p>Take a look at our recent hackathons, technical workshops, and social gatherings shaping the next generation of AI leaders.</p>
+        </div>
+
+        <!-- Filter Buttons with data-filter attributes -->
+        <div class="gallery-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="workshop">Workshops</button>
+            <button class="filter-btn" data-filter="hackathon">Hackathons</button>
+            <button class="filter-btn" data-filter="socials">Socials</button>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Gallery Item 1 (Workshop) -->
+            <div class="gallery-item" data-category="workshop">
+                <span class="gallery-tag">Workshop</span>
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="LLM Workshop">
+                <div class="gallery-overlay">
+                    <h4>LLM Fine-Tuning Bootcamp</h4>
+                    <p>Spring 2026 • Innovation Lab</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Item 2 (Hackathon) -->
+            <div class="gallery-item" data-category="hackathon">
+                <span class="gallery-tag">Hackathon</span>
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="Hackathon">
+                <div class="gallery-overlay">
+                    <h4>48-Hour AI Hackathon</h4>
+                    <p>Fall 2025 • Main Campus Hall</p>
+                </div>
+            </div>
+
+            <!-- Gallery Item 3 (Socials) -->
+            <div class="gallery-item" data-category="socials">
+                <span class="gallery-tag">Socials</span>
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Networking">
+                <div class="gallery-overlay">
+                    <h4>Industry Networking Night</h4>
+                    <p>Fall 2025 • Student Center</p>
+                </div>
+            </div>
+
+            <!-- Gallery Item 4 (Workshop) -->
+            <div class="gallery-item" data-category="workshop">
+                <span class="gallery-tag">Workshop</span>
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80" alt="Team Working">
+                <div class="gallery-overlay">
+                    <h4>Intro to Computer Vision</h4>
+                    <p>Spring 2026 • Engineering Block</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Item 5 (Socials) -->
+            <div class="gallery-item" data-category="socials">
+                <span class="gallery-tag">Socials</span>
+                <img src="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=800&q=80" alt="Club Gathering">
+                <div class="gallery-overlay">
+                    <h4>End of Semester Meetup</h4>
+                    <p>Spring 2025 • Campus Courtyard</p>
+                </div>
+            </div>
+
+            <!-- Gallery Item 6 (Hackathon) -->
+            <div class="gallery-item" data-category="hackathon">
+                <span class="gallery-tag">Hackathon</span>
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Presenting Project">
+                <div class="gallery-overlay">
+                    <h4>National Tech Pitch Finals</h4>
+                    <p>Fall 2025 • City Convention Center</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <div class="brand-icon"><i class="bi bi-cpu"></i></div>
+                        <strong>AI & Innovation Club</strong>
+                    </div>
+                    <p class="footer-description">A student-led hub for AI exploration, research, and innovation at the university. Open to all disciplines and experience levels.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4>QUICK LINKS</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="index.html">Home</a>
+                            <a href="events.html">Events</a>
+                            <a href="gallery.html">Gallery</a>
+                            <a href="contact.html">Contact</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="about.html">About Us</a>
+                            <a href="resources.html">Resources</a>
+                            <a href="projects.html">AI Projects</a>
+                            <a href="join.html">Join Us</a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImg">
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Particle Canvas Logic
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        const particles = [];
+        for (let i = 0; i < 60; i++) {
+            particles.push({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
+                radius: Math.random() * 2 + 1
+            });
+        }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.4)'; ctx.fill();
+            });
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 120 * 0.8})`; ctx.lineWidth = 0.5; ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- NEW: Category Filtering Logic ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove 'active' class from all buttons and add to the clicked one
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Get the filter category
+                const filterValue = this.getAttribute('data-filter');
+
+                // Loop through all images and hide/show based on category
+                galleryItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (filterValue === 'all' || filterValue === itemCategory) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Lightbox Modal Logic
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        const closeBtn = document.querySelector('.close-modal');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const title = this.querySelector('.gallery-overlay h4').innerText;
+                
+                modalImg.src = img.src;
+                modalCaption.innerText = title;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
