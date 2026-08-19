@@ -506,55 +506,154 @@
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
+     <footer class="site-footer">
+
         <div class="container">
+
             <div class="row g-4">
-                
+
                 <!-- Club -->
                 <div class="col-lg-4">
+
                     <div class="footer-brand">
+
                         <div class="brand-icon">
                             <i class="bi bi-cpu"></i>
                         </div>
+
                         <strong>AI & Innovation Club</strong>
+
                     </div>
+
                     <p class="footer-description">
                         A student-led hub for AI exploration, research,
                         and innovation at the university. Open to all
                         disciplines and experience levels.
                     </p>
-                    <div class="social-icons">
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                    </div>
+
                 </div>
-                
-              
+
+
+                <!-- Quick Links -->
                 <div class="col-lg-4 col-md-6">
+
                     <h4>QUICK LINKS</h4>
+
                     <div class="row">
-                      
+
+                        <!-- Quick Links Column 1 -->
                         <div class="col-6">
+
                             <a href="index.html">Home</a>
+
                             <a href="events.html">Events</a>
+
                             <a href="gallery.html">Gallery</a>
+
                             <a href="contact.html">Contact</a>
+
                         </div>
-                        
+
+
+                        <!-- Quick Links Column 2 -->
                         <div class="col-6">
+
                             <a href="about.html">About Us</a>
+
                             <a href="resources.html">Resources</a>
+
                             <a href="projects.html">AI Projects</a>
+
                             <a href="join.html">Join Us</a>
+
                         </div>
+
                     </div>
-                </div> 
-               
+
+                </div>
+
+
+                <!-- Newsletter -->
+                <div class="col-lg-4">
+
+                    <h4>STAY UPDATED</h4>
+
+                    <p>
+                        Get weekly AI insights, event invites, and
+                        research highlights delivered to your inbox.
+                    </p>
+
+                    <div class="newsletter">
+
+                        <input class="newsletter-email" type="email" placeholder="your@email.com"
+                            aria-label="Email address" autocomplete="email" required>
+
+                        <button class="newsletter-btn" type="button">
+                            Subscribe
+                        </button>
+
+                        <small class="newsletter-message" aria-live="polite"></small>
+
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
-    </footer>
+
+
+        <hr>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 AI & Innovation Club. All rights reserved.
+            </span>
+
+        </div>
+
+        </div>
+
+        <div id="projectModal" class="project-modal">
+
+            <div class="project-modal-content">
+
+                <button id="closeProjectModal" class="close-project-modal">
+                    ×
+                </button>
+
+                <img id="modalProjectImage" src="" alt="">
+
+                <div class="project-modal-body">
+
+                    <span id="modalProjectCategory" class="project-category">
+                    </span>
+
+                    <h2 id="modalProjectTitle"></h2>
+
+                    <p id="modalProjectDescription"></p>
+
+                    <div id="modalProjectTags" class="project-tags">
+                    </div>
+
+                    <div class="project-modal-meta">
+
+                        <strong id="modalProjectAuthor"></strong>
+
+                        <span id="modalProjectRole"></span>
+
+                        <span id="modalProjectYear"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+     </footer>
 
     <!-- Interactive Script (Particle Canvas) -->
     <script>
